@@ -14,7 +14,7 @@ export interface User {
   email: string;
   phone: string;
   role: UserRole;
-  customerId?: string;
+  customerId?: string | undefined;
 }
 
 export type LoyaltyLevel = "CLIENTE" | "VIP" | "BLACK";
@@ -27,7 +27,7 @@ export interface DeliveryAddress {
   number: string;
   district: string;
   city: string;
-  complement?: string;
+  complement?: string | undefined;
   isDefault: boolean;
 }
 
@@ -119,11 +119,11 @@ export interface Order {
   total: number;
   status: OrderStatus;
   type: "ENTREGA" | "RETIRADA";
-  address?: string;
+  address?: string | undefined;
   paymentMethod: PaymentMethod;
   createdAt: string;
   etaMinutes: number;
-  note?: string;
+  note?: string | undefined;
 }
 
 export type PendingStatus = "PENDENTE" | "PAGO" | "ATRASADO";
