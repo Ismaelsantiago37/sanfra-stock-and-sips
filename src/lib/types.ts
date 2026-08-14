@@ -52,7 +52,9 @@ export interface Customer {
 export type CategoryId =
   | "cervejas"
   | "destilados"
-  | "vinhos"
+  | "whisky"
+  | "licores"
+  | "importados"
   | "energeticos"
   | "refrigerantes"
   | "agua"

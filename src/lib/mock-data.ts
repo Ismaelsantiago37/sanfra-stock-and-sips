@@ -13,13 +13,17 @@ import type {
 
 import imgCervejas from "@/assets/cat-cervejas.jpg";
 import imgDestilados from "@/assets/cat-destilados.jpg";
-import imgVinhos from "@/assets/cat-vinhos.jpg";
+import imgWhisky from "@/assets/cat-whisky.jpg";
+import imgLicores from "@/assets/cat-licores.jpg";
+import imgImportados from "@/assets/cat-importados.jpg";
 import imgOutros from "@/assets/cat-outros.jpg";
 
 export const categories: Category[] = [
+  { id: "whisky", name: "Whisky", emoji: "🥃" },
   { id: "cervejas", name: "Cervejas", emoji: "🍺" },
-  { id: "destilados", name: "Destilados", emoji: "🥃" },
-  { id: "vinhos", name: "Vinhos", emoji: "🍷" },
+  { id: "importados", name: "Importados", emoji: "🌎" },
+  { id: "licores", name: "Licores", emoji: "🍯" },
+  { id: "destilados", name: "Destilados", emoji: "🍸" },
   { id: "energeticos", name: "Energéticos", emoji: "⚡" },
   { id: "refrigerantes", name: "Refrigerantes", emoji: "🥤" },
   { id: "agua", name: "Água", emoji: "💧" },
@@ -31,7 +35,9 @@ export const categories: Category[] = [
 const img = {
   cervejas: imgCervejas,
   destilados: imgDestilados,
-  vinhos: imgVinhos,
+  whisky: imgWhisky,
+  licores: imgLicores,
+  importados: imgImportados,
   outros: imgOutros,
 };
 
