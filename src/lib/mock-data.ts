@@ -362,7 +362,7 @@ export const customers: Customer[] = [
     level: "VIP",
     points: 620,
     couponsUsed: 4,
-    favoriteCategory: "vinhos",
+    favoriteCategory: "whisky",
   },
   {
     id: "c3",
