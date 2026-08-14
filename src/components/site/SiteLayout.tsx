@@ -36,15 +36,15 @@ export function Logo({ compact = false }: { compact?: boolean }) {
     <Link to="/" className="flex min-w-0 items-center gap-2">
       <img
         src={logo.url}
-        alt="Adega do Bairro"
+        alt="Adega do Sanfra"
         width={44}
         height={44}
         className="h-10 w-10 shrink-0 rounded-full object-contain"
       />
       {!compact && (
         <span className="min-w-0 leading-none">
-          <span className="block font-display text-lg text-foreground">Adega do Bairro</span>
-          <span className="block text-[10px] tracking-widest text-primary">DO BAIRRO PRO SEU ROLÊ</span>
+          <span className="block font-display text-lg text-foreground">Adega do Sanfra</span>
+          <span className="block text-[10px] tracking-widest text-primary">BEBIDA GELADA DO SEU BAIRRO</span>
         </span>
       )}
     </Link>
@@ -203,7 +203,7 @@ export function SiteLayout({ children }: { children: ReactNode }) {
             <p className="font-display text-base text-primary">Contato</p>
             <ul className="mt-2 space-y-1 text-muted-foreground">
               <li>WhatsApp: (11) 90000-1111</li>
-              <li>contato@adegadobairro.com.br</li>
+              <li>contato@adegadosanfra.com.br</li>
               <li>Rua das Palmeiras, 100 — Jardim Alvorada</li>
             </ul>
           </div>
