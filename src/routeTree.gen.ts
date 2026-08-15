@@ -11,6 +11,11 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as CarrinhoRouteImport } from './routes/carrinho'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as EntrarRouteImport } from './routes/entrar'
+import { Route as FidelidadeRouteImport } from './routes/fidelidade'
+import { Route as PedidosRouteImport } from './routes/pedidos'
+import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as PromocoesRouteImport } from './routes/promocoes'
 
@@ -22,6 +27,31 @@ const IndexRoute = IndexRouteImport.update({
 const CarrinhoRoute = CarrinhoRouteImport.update({
   id: '/carrinho',
   path: '/carrinho',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EntrarRoute = EntrarRouteImport.update({
+  id: '/entrar',
+  path: '/entrar',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FidelidadeRoute = FidelidadeRouteImport.update({
+  id: '/fidelidade',
+  path: '/fidelidade',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PedidosRoute = PedidosRouteImport.update({
+  id: '/pedidos',
+  path: '/pedidos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PerfilRoute = PerfilRouteImport.update({
+  id: '/perfil',
+  path: '/perfil',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ProdutosRoute = ProdutosRouteImport.update({
@@ -38,12 +68,22 @@ const PromocoesRoute = PromocoesRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/carrinho': typeof CarrinhoRoute
+  '/checkout': typeof CheckoutRoute
+  '/entrar': typeof EntrarRoute
+  '/fidelidade': typeof FidelidadeRoute
+  '/pedidos': typeof PedidosRoute
+  '/perfil': typeof PerfilRoute
   '/produtos': typeof ProdutosRoute
   '/promocoes': typeof PromocoesRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/carrinho': typeof CarrinhoRoute
+  '/checkout': typeof CheckoutRoute
+  '/entrar': typeof EntrarRoute
+  '/fidelidade': typeof FidelidadeRoute
+  '/pedidos': typeof PedidosRoute
+  '/perfil': typeof PerfilRoute
   '/produtos': typeof ProdutosRoute
   '/promocoes': typeof PromocoesRoute
 }
@@ -51,20 +91,58 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/carrinho': typeof CarrinhoRoute
+  '/checkout': typeof CheckoutRoute
+  '/entrar': typeof EntrarRoute
+  '/fidelidade': typeof FidelidadeRoute
+  '/pedidos': typeof PedidosRoute
+  '/perfil': typeof PerfilRoute
   '/produtos': typeof ProdutosRoute
   '/promocoes': typeof PromocoesRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/carrinho' | '/produtos' | '/promocoes'
+  fullPaths:
+    | '/'
+    | '/carrinho'
+    | '/checkout'
+    | '/entrar'
+    | '/fidelidade'
+    | '/pedidos'
+    | '/perfil'
+    | '/produtos'
+    | '/promocoes'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/carrinho' | '/produtos' | '/promocoes'
-  id: '__root__' | '/' | '/carrinho' | '/produtos' | '/promocoes'
+  to:
+    | '/'
+    | '/carrinho'
+    | '/checkout'
+    | '/entrar'
+    | '/fidelidade'
+    | '/pedidos'
+    | '/perfil'
+    | '/produtos'
+    | '/promocoes'
+  id:
+    | '__root__'
+    | '/'
+    | '/carrinho'
+    | '/checkout'
+    | '/entrar'
+    | '/fidelidade'
+    | '/pedidos'
+    | '/perfil'
+    | '/produtos'
+    | '/promocoes'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CarrinhoRoute: typeof CarrinhoRoute
+  CheckoutRoute: typeof CheckoutRoute
+  EntrarRoute: typeof EntrarRoute
+  FidelidadeRoute: typeof FidelidadeRoute
+  PedidosRoute: typeof PedidosRoute
+  PerfilRoute: typeof PerfilRoute
   ProdutosRoute: typeof ProdutosRoute
   PromocoesRoute: typeof PromocoesRoute
 }
@@ -83,6 +161,41 @@ declare module '@tanstack/react-router' {
       path: '/carrinho'
       fullPath: '/carrinho'
       preLoaderRoute: typeof CarrinhoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/entrar': {
+      id: '/entrar'
+      path: '/entrar'
+      fullPath: '/entrar'
+      preLoaderRoute: typeof EntrarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/fidelidade': {
+      id: '/fidelidade'
+      path: '/fidelidade'
+      fullPath: '/fidelidade'
+      preLoaderRoute: typeof FidelidadeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pedidos': {
+      id: '/pedidos'
+      path: '/pedidos'
+      fullPath: '/pedidos'
+      preLoaderRoute: typeof PedidosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/perfil': {
+      id: '/perfil'
+      path: '/perfil'
+      fullPath: '/perfil'
+      preLoaderRoute: typeof PerfilRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/produtos': {
@@ -105,6 +218,11 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CarrinhoRoute: CarrinhoRoute,
+  CheckoutRoute: CheckoutRoute,
+  EntrarRoute: EntrarRoute,
+  FidelidadeRoute: FidelidadeRoute,
+  PedidosRoute: PedidosRoute,
+  PerfilRoute: PerfilRoute,
   ProdutosRoute: ProdutosRoute,
   PromocoesRoute: PromocoesRoute,
 }
