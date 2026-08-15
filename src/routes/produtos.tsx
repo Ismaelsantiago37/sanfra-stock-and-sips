@@ -10,12 +10,11 @@ import { useApp } from "@/lib/store";
 import type { CategoryId } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
-type Search = { cat?: string };
+type ProdutosSearch = { cat?: string | undefined };
 
 export const Route = createFileRoute("/produtos")({
-  validateSearch: (search: Record<string, unknown>): Search => ({
-    cat: typeof search['cat'] === "string" ? search['cat'] : undefined,
-  }),
+  validateSearch: (search: Record<string, unknown>): ProdutosSearch =>
+    typeof search['cat'] === "string" ? { cat: search['cat'] } : {},
   head: () => ({
     meta: [
       { title: "Produtos — Adega do Sanfra" },

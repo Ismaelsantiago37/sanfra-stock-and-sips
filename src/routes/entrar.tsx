@@ -20,7 +20,7 @@ export const Route = createFileRoute("/entrar")({
       { property: "og:description", content: "Acesse sua conta na Adega do Sanfra." },
     ],
   }),
-  component: Entrar;
+  component: Entrar,
 });
 
 function Entrar() {
