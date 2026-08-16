@@ -19,10 +19,14 @@ import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as PromocoesRouteImport } from './routes/promocoes'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
+import { Route as AdminClientesRouteImport } from './routes/admin/clientes'
 import { Route as AdminDespesasRouteImport } from './routes/admin/despesas'
 import { Route as AdminFinanceiroRouteImport } from './routes/admin/financeiro'
 import { Route as AdminLucroRouteImport } from './routes/admin/lucro'
+import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
 import { Route as AdminPicoRouteImport } from './routes/admin/pico'
+import { Route as AdminProdutosRouteImport } from './routes/admin/produtos'
+import { Route as AdminPromocoesRouteImport } from './routes/admin/promocoes'
 import { Route as AdminVendasRouteImport } from './routes/admin/vendas'
 
 const IndexRoute = IndexRouteImport.update({
@@ -75,6 +79,11 @@ const AdminIndexRoute = AdminIndexRouteImport.update({
   path: '/admin/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminClientesRoute = AdminClientesRouteImport.update({
+  id: '/admin/clientes',
+  path: '/admin/clientes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDespesasRoute = AdminDespesasRouteImport.update({
   id: '/admin/despesas',
   path: '/admin/despesas',
@@ -90,9 +99,24 @@ const AdminLucroRoute = AdminLucroRouteImport.update({
   path: '/admin/lucro',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminPedidosRoute = AdminPedidosRouteImport.update({
+  id: '/admin/pedidos',
+  path: '/admin/pedidos',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminPicoRoute = AdminPicoRouteImport.update({
   id: '/admin/pico',
   path: '/admin/pico',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminProdutosRoute = AdminProdutosRouteImport.update({
+  id: '/admin/produtos',
+  path: '/admin/produtos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPromocoesRoute = AdminPromocoesRouteImport.update({
+  id: '/admin/promocoes',
+  path: '/admin/promocoes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminVendasRoute = AdminVendasRouteImport.update({
@@ -111,10 +135,14 @@ export interface FileRoutesByFullPath {
   '/perfil': typeof PerfilRoute
   '/produtos': typeof ProdutosRoute
   '/promocoes': typeof PromocoesRoute
+  '/admin/clientes': typeof AdminClientesRoute
   '/admin/despesas': typeof AdminDespesasRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/lucro': typeof AdminLucroRoute
+  '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/pico': typeof AdminPicoRoute
+  '/admin/produtos': typeof AdminProdutosRoute
+  '/admin/promocoes': typeof AdminPromocoesRoute
   '/admin/vendas': typeof AdminVendasRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -128,10 +156,14 @@ export interface FileRoutesByTo {
   '/perfil': typeof PerfilRoute
   '/produtos': typeof ProdutosRoute
   '/promocoes': typeof PromocoesRoute
+  '/admin/clientes': typeof AdminClientesRoute
   '/admin/despesas': typeof AdminDespesasRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/lucro': typeof AdminLucroRoute
+  '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/pico': typeof AdminPicoRoute
+  '/admin/produtos': typeof AdminProdutosRoute
+  '/admin/promocoes': typeof AdminPromocoesRoute
   '/admin/vendas': typeof AdminVendasRoute
   '/admin': typeof AdminIndexRoute
 }
@@ -146,10 +178,14 @@ export interface FileRoutesById {
   '/perfil': typeof PerfilRoute
   '/produtos': typeof ProdutosRoute
   '/promocoes': typeof PromocoesRoute
+  '/admin/clientes': typeof AdminClientesRoute
   '/admin/despesas': typeof AdminDespesasRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/lucro': typeof AdminLucroRoute
+  '/admin/pedidos': typeof AdminPedidosRoute
   '/admin/pico': typeof AdminPicoRoute
+  '/admin/produtos': typeof AdminProdutosRoute
+  '/admin/promocoes': typeof AdminPromocoesRoute
   '/admin/vendas': typeof AdminVendasRoute
   '/admin/': typeof AdminIndexRoute
 }
@@ -165,10 +201,14 @@ export interface FileRouteTypes {
     | '/perfil'
     | '/produtos'
     | '/promocoes'
+    | '/admin/clientes'
     | '/admin/despesas'
     | '/admin/financeiro'
     | '/admin/lucro'
+    | '/admin/pedidos'
     | '/admin/pico'
+    | '/admin/produtos'
+    | '/admin/promocoes'
     | '/admin/vendas'
     | '/admin/'
   fileRoutesByTo: FileRoutesByTo
@@ -182,10 +222,14 @@ export interface FileRouteTypes {
     | '/perfil'
     | '/produtos'
     | '/promocoes'
+    | '/admin/clientes'
     | '/admin/despesas'
     | '/admin/financeiro'
     | '/admin/lucro'
+    | '/admin/pedidos'
     | '/admin/pico'
+    | '/admin/produtos'
+    | '/admin/promocoes'
     | '/admin/vendas'
     | '/admin'
   id:
@@ -199,10 +243,14 @@ export interface FileRouteTypes {
     | '/perfil'
     | '/produtos'
     | '/promocoes'
+    | '/admin/clientes'
     | '/admin/despesas'
     | '/admin/financeiro'
     | '/admin/lucro'
+    | '/admin/pedidos'
     | '/admin/pico'
+    | '/admin/produtos'
+    | '/admin/promocoes'
     | '/admin/vendas'
     | '/admin/'
   fileRoutesById: FileRoutesById
@@ -217,10 +265,14 @@ export interface RootRouteChildren {
   PerfilRoute: typeof PerfilRoute
   ProdutosRoute: typeof ProdutosRoute
   PromocoesRoute: typeof PromocoesRoute
+  AdminClientesRoute: typeof AdminClientesRoute
   AdminDespesasRoute: typeof AdminDespesasRoute
   AdminFinanceiroRoute: typeof AdminFinanceiroRoute
   AdminLucroRoute: typeof AdminLucroRoute
+  AdminPedidosRoute: typeof AdminPedidosRoute
   AdminPicoRoute: typeof AdminPicoRoute
+  AdminProdutosRoute: typeof AdminProdutosRoute
+  AdminPromocoesRoute: typeof AdminPromocoesRoute
   AdminVendasRoute: typeof AdminVendasRoute
   AdminIndexRoute: typeof AdminIndexRoute
 }
@@ -297,6 +349,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/clientes': {
+      id: '/admin/clientes'
+      path: '/admin/clientes'
+      fullPath: '/admin/clientes'
+      preLoaderRoute: typeof AdminClientesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/despesas': {
       id: '/admin/despesas'
       path: '/admin/despesas'
@@ -318,11 +377,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLucroRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/pedidos': {
+      id: '/admin/pedidos'
+      path: '/admin/pedidos'
+      fullPath: '/admin/pedidos'
+      preLoaderRoute: typeof AdminPedidosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/pico': {
       id: '/admin/pico'
       path: '/admin/pico'
       fullPath: '/admin/pico'
       preLoaderRoute: typeof AdminPicoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/produtos': {
+      id: '/admin/produtos'
+      path: '/admin/produtos'
+      fullPath: '/admin/produtos'
+      preLoaderRoute: typeof AdminProdutosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/promocoes': {
+      id: '/admin/promocoes'
+      path: '/admin/promocoes'
+      fullPath: '/admin/promocoes'
+      preLoaderRoute: typeof AdminPromocoesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/vendas': {
@@ -345,10 +425,14 @@ const rootRouteChildren: RootRouteChildren = {
   PerfilRoute: PerfilRoute,
   ProdutosRoute: ProdutosRoute,
   PromocoesRoute: PromocoesRoute,
+  AdminClientesRoute: AdminClientesRoute,
   AdminDespesasRoute: AdminDespesasRoute,
   AdminFinanceiroRoute: AdminFinanceiroRoute,
   AdminLucroRoute: AdminLucroRoute,
+  AdminPedidosRoute: AdminPedidosRoute,
   AdminPicoRoute: AdminPicoRoute,
+  AdminProdutosRoute: AdminProdutosRoute,
+  AdminPromocoesRoute: AdminPromocoesRoute,
   AdminVendasRoute: AdminVendasRoute,
   AdminIndexRoute: AdminIndexRoute,
 }
