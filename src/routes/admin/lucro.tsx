@@ -30,7 +30,7 @@ export const Route = createFileRoute("/admin/lucro")({
       { property: "og:description", content: "Resultado e margem da adega mês a mês." },
     ],
   }),
-  component: Lucro;
+  component: Lucro,
 });
 
 function Lucro() {
