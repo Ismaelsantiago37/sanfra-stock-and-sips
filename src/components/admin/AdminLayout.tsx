@@ -18,7 +18,7 @@ import {
   Wallet,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
