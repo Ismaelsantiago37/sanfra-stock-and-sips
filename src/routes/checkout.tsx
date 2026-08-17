@@ -31,7 +31,6 @@ const payments: { id: PaymentMethod; label: string }[] = [
   { id: "PIX", label: "Pix" },
   { id: "CARTAO", label: "Cartão na entrega" },
   { id: "DINHEIRO", label: "Dinheiro" },
-  { id: "FIADO", label: "Pendente (fiado)" },
 ];
 
 function Checkout() {
@@ -102,6 +101,10 @@ function Checkout() {
               </button>
             ))}
           </div>
+          <p className="mt-3 rounded-lg border border-border bg-surface-2 p-3 text-xs text-muted-foreground">
+            Fiado (valor pendente) só no balcão: pedidos feitos pelo site precisam ser pagos na
+            hora, em Pix, cartão ou dinheiro.
+          </p>
           <div className="mt-4 space-y-2">
             <Label htmlFor="obs">Observação</Label>
             <Textarea
