@@ -34,6 +34,25 @@ export function ProductCard({ product }: { product: Product }) {
       <div className="flex flex-1 flex-col gap-2 p-3">
         <h3 className="line-clamp-2 text-sm font-semibold">{product.name}</h3>
         <p className="line-clamp-2 text-xs text-muted-foreground">{product.description}</p>
+        {product.rental && (
+          <div className="rounded-lg border border-primary/40 bg-primary/5 p-2 text-xs">
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Por hora</span>
+              <span className="font-medium text-primary">{brl(product.rental.hourly)}</span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-muted-foreground">Diária</span>
+              <span className="font-medium text-primary">{brl(product.rental.daily)}</span>
+            </div>
+            <p className="mt-1 text-[11px] leading-snug text-muted-foreground">
+              Devolução fora do prazo combinado gera juros de{" "}
+              <strong className="text-primary">{product.rental.lateInterestPercent}% ao dia</strong>{" "}
+              sobre o valor do aluguel. Fumando aqui na adega, você ganha{" "}
+              <strong className="text-primary">{product.rental.onSiteDiscountPercent}% de desconto</strong>{" "}
+              em vez de alugar para levar.
+            </p>
+          </div>
+        )}
         <div className="mt-auto flex items-end justify-between gap-2 pt-2">
           <div className="min-w-0">
             {oldPrice && (
