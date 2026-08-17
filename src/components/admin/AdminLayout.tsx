@@ -114,8 +114,22 @@ export function AdminLayout({
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
-  const { logout, user } = useApp();
+  const { logout, user, loading } = useApp();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && user?.role !== "ADMIN") navigate({ to: "/entrar" });
+  }, [loading, user, navigate]);
+
+  if (!loading && user?.role !== "ADMIN") {
+    return (
+      <div className="flex min-h-screen items-center justify-center p-6 text-center text-sm text-muted-foreground">
+        Área restrita ao administrador. Redirecionando para o login…
+      </div>
+    );
+  }
+
+
 
   return (
     <div className="flex min-h-screen bg-background">
