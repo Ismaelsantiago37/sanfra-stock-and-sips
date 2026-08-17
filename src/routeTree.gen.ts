@@ -20,10 +20,14 @@ import { Route as ProdutosRouteImport } from './routes/produtos'
 import { Route as PromocoesRouteImport } from './routes/promocoes'
 import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminClientesRouteImport } from './routes/admin/clientes'
+import { Route as AdminConfiguracoesRouteImport } from './routes/admin/configuracoes'
 import { Route as AdminDespesasRouteImport } from './routes/admin/despesas'
+import { Route as AdminFidelidadeRouteImport } from './routes/admin/fidelidade'
 import { Route as AdminFinanceiroRouteImport } from './routes/admin/financeiro'
 import { Route as AdminLucroRouteImport } from './routes/admin/lucro'
+import { Route as AdminMetricasRouteImport } from './routes/admin/metricas'
 import { Route as AdminPedidosRouteImport } from './routes/admin/pedidos'
+import { Route as AdminPendentesRouteImport } from './routes/admin/pendentes'
 import { Route as AdminPicoRouteImport } from './routes/admin/pico'
 import { Route as AdminProdutosRouteImport } from './routes/admin/produtos'
 import { Route as AdminPromocoesRouteImport } from './routes/admin/promocoes'
@@ -84,9 +88,19 @@ const AdminClientesRoute = AdminClientesRouteImport.update({
   path: '/admin/clientes',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminConfiguracoesRoute = AdminConfiguracoesRouteImport.update({
+  id: '/admin/configuracoes',
+  path: '/admin/configuracoes',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminDespesasRoute = AdminDespesasRouteImport.update({
   id: '/admin/despesas',
   path: '/admin/despesas',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminFidelidadeRoute = AdminFidelidadeRouteImport.update({
+  id: '/admin/fidelidade',
+  path: '/admin/fidelidade',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminFinanceiroRoute = AdminFinanceiroRouteImport.update({
@@ -99,9 +113,19 @@ const AdminLucroRoute = AdminLucroRouteImport.update({
   path: '/admin/lucro',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminMetricasRoute = AdminMetricasRouteImport.update({
+  id: '/admin/metricas',
+  path: '/admin/metricas',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminPedidosRoute = AdminPedidosRouteImport.update({
   id: '/admin/pedidos',
   path: '/admin/pedidos',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminPendentesRoute = AdminPendentesRouteImport.update({
+  id: '/admin/pendentes',
+  path: '/admin/pendentes',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AdminPicoRoute = AdminPicoRouteImport.update({
@@ -136,10 +160,14 @@ export interface FileRoutesByFullPath {
   '/produtos': typeof ProdutosRoute
   '/promocoes': typeof PromocoesRoute
   '/admin/clientes': typeof AdminClientesRoute
+  '/admin/configuracoes': typeof AdminConfiguracoesRoute
   '/admin/despesas': typeof AdminDespesasRoute
+  '/admin/fidelidade': typeof AdminFidelidadeRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/lucro': typeof AdminLucroRoute
+  '/admin/metricas': typeof AdminMetricasRoute
   '/admin/pedidos': typeof AdminPedidosRoute
+  '/admin/pendentes': typeof AdminPendentesRoute
   '/admin/pico': typeof AdminPicoRoute
   '/admin/produtos': typeof AdminProdutosRoute
   '/admin/promocoes': typeof AdminPromocoesRoute
@@ -157,10 +185,14 @@ export interface FileRoutesByTo {
   '/produtos': typeof ProdutosRoute
   '/promocoes': typeof PromocoesRoute
   '/admin/clientes': typeof AdminClientesRoute
+  '/admin/configuracoes': typeof AdminConfiguracoesRoute
   '/admin/despesas': typeof AdminDespesasRoute
+  '/admin/fidelidade': typeof AdminFidelidadeRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/lucro': typeof AdminLucroRoute
+  '/admin/metricas': typeof AdminMetricasRoute
   '/admin/pedidos': typeof AdminPedidosRoute
+  '/admin/pendentes': typeof AdminPendentesRoute
   '/admin/pico': typeof AdminPicoRoute
   '/admin/produtos': typeof AdminProdutosRoute
   '/admin/promocoes': typeof AdminPromocoesRoute
@@ -179,10 +211,14 @@ export interface FileRoutesById {
   '/produtos': typeof ProdutosRoute
   '/promocoes': typeof PromocoesRoute
   '/admin/clientes': typeof AdminClientesRoute
+  '/admin/configuracoes': typeof AdminConfiguracoesRoute
   '/admin/despesas': typeof AdminDespesasRoute
+  '/admin/fidelidade': typeof AdminFidelidadeRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/lucro': typeof AdminLucroRoute
+  '/admin/metricas': typeof AdminMetricasRoute
   '/admin/pedidos': typeof AdminPedidosRoute
+  '/admin/pendentes': typeof AdminPendentesRoute
   '/admin/pico': typeof AdminPicoRoute
   '/admin/produtos': typeof AdminProdutosRoute
   '/admin/promocoes': typeof AdminPromocoesRoute
@@ -202,10 +238,14 @@ export interface FileRouteTypes {
     | '/produtos'
     | '/promocoes'
     | '/admin/clientes'
+    | '/admin/configuracoes'
     | '/admin/despesas'
+    | '/admin/fidelidade'
     | '/admin/financeiro'
     | '/admin/lucro'
+    | '/admin/metricas'
     | '/admin/pedidos'
+    | '/admin/pendentes'
     | '/admin/pico'
     | '/admin/produtos'
     | '/admin/promocoes'
@@ -223,10 +263,14 @@ export interface FileRouteTypes {
     | '/produtos'
     | '/promocoes'
     | '/admin/clientes'
+    | '/admin/configuracoes'
     | '/admin/despesas'
+    | '/admin/fidelidade'
     | '/admin/financeiro'
     | '/admin/lucro'
+    | '/admin/metricas'
     | '/admin/pedidos'
+    | '/admin/pendentes'
     | '/admin/pico'
     | '/admin/produtos'
     | '/admin/promocoes'
@@ -244,10 +288,14 @@ export interface FileRouteTypes {
     | '/produtos'
     | '/promocoes'
     | '/admin/clientes'
+    | '/admin/configuracoes'
     | '/admin/despesas'
+    | '/admin/fidelidade'
     | '/admin/financeiro'
     | '/admin/lucro'
+    | '/admin/metricas'
     | '/admin/pedidos'
+    | '/admin/pendentes'
     | '/admin/pico'
     | '/admin/produtos'
     | '/admin/promocoes'
@@ -266,10 +314,14 @@ export interface RootRouteChildren {
   ProdutosRoute: typeof ProdutosRoute
   PromocoesRoute: typeof PromocoesRoute
   AdminClientesRoute: typeof AdminClientesRoute
+  AdminConfiguracoesRoute: typeof AdminConfiguracoesRoute
   AdminDespesasRoute: typeof AdminDespesasRoute
+  AdminFidelidadeRoute: typeof AdminFidelidadeRoute
   AdminFinanceiroRoute: typeof AdminFinanceiroRoute
   AdminLucroRoute: typeof AdminLucroRoute
+  AdminMetricasRoute: typeof AdminMetricasRoute
   AdminPedidosRoute: typeof AdminPedidosRoute
+  AdminPendentesRoute: typeof AdminPendentesRoute
   AdminPicoRoute: typeof AdminPicoRoute
   AdminProdutosRoute: typeof AdminProdutosRoute
   AdminPromocoesRoute: typeof AdminPromocoesRoute
@@ -356,11 +408,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminClientesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/configuracoes': {
+      id: '/admin/configuracoes'
+      path: '/admin/configuracoes'
+      fullPath: '/admin/configuracoes'
+      preLoaderRoute: typeof AdminConfiguracoesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/despesas': {
       id: '/admin/despesas'
       path: '/admin/despesas'
       fullPath: '/admin/despesas'
       preLoaderRoute: typeof AdminDespesasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/fidelidade': {
+      id: '/admin/fidelidade'
+      path: '/admin/fidelidade'
+      fullPath: '/admin/fidelidade'
+      preLoaderRoute: typeof AdminFidelidadeRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/financeiro': {
@@ -377,11 +443,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminLucroRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/metricas': {
+      id: '/admin/metricas'
+      path: '/admin/metricas'
+      fullPath: '/admin/metricas'
+      preLoaderRoute: typeof AdminMetricasRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/pedidos': {
       id: '/admin/pedidos'
       path: '/admin/pedidos'
       fullPath: '/admin/pedidos'
       preLoaderRoute: typeof AdminPedidosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/pendentes': {
+      id: '/admin/pendentes'
+      path: '/admin/pendentes'
+      fullPath: '/admin/pendentes'
+      preLoaderRoute: typeof AdminPendentesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/admin/pico': {
@@ -426,10 +506,14 @@ const rootRouteChildren: RootRouteChildren = {
   ProdutosRoute: ProdutosRoute,
   PromocoesRoute: PromocoesRoute,
   AdminClientesRoute: AdminClientesRoute,
+  AdminConfiguracoesRoute: AdminConfiguracoesRoute,
   AdminDespesasRoute: AdminDespesasRoute,
+  AdminFidelidadeRoute: AdminFidelidadeRoute,
   AdminFinanceiroRoute: AdminFinanceiroRoute,
   AdminLucroRoute: AdminLucroRoute,
+  AdminMetricasRoute: AdminMetricasRoute,
   AdminPedidosRoute: AdminPedidosRoute,
+  AdminPendentesRoute: AdminPendentesRoute,
   AdminPicoRoute: AdminPicoRoute,
   AdminProdutosRoute: AdminProdutosRoute,
   AdminPromocoesRoute: AdminPromocoesRoute,
