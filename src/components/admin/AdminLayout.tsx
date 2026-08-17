@@ -5,17 +5,20 @@ import {
   ClipboardList,
   Clock,
   Crown,
+  DollarSign,
   LayoutDashboard,
   LogOut,
   Menu,
   Package,
+  Receipt,
   Settings,
   Tag,
+  TrendingUp,
   Users,
   Wallet,
 } from "lucide-react";
 import type { ReactNode } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Logo } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
@@ -26,6 +29,10 @@ import { cn } from "@/lib/utils";
 
 const menu = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/admin/vendas", label: "Vendas", icon: TrendingUp },
+  { to: "/admin/despesas", label: "Despesas", icon: Receipt },
+  { to: "/admin/lucro", label: "Lucro", icon: DollarSign },
+  { to: "/admin/financeiro", label: "Financeiro", icon: BarChart3 },
   { to: "/admin/pedidos", label: "Pedidos", icon: ClipboardList },
   { to: "/admin/clientes", label: "Clientes", icon: Users },
   { to: "/admin/produtos", label: "Produtos", icon: Package },
@@ -36,6 +43,7 @@ const menu = [
   { to: "/admin/pico", label: "Horários de Pico", icon: Clock },
   { to: "/admin/configuracoes", label: "Configurações", icon: Settings },
 ] as const;
+
 
 function MenuList({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
@@ -106,8 +114,22 @@ export function AdminLayout({
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false);
-  const { logout, user } = useApp();
+  const { logout, user, loading } = useApp();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!loading && user?.role !== "ADMIN") navigate({ to: "/entrar" });
+  }, [loading, user, navigate]);
+
+  if (!loading && user?.role !== "ADMIN") {
+    return (
+      <div className="flex min-h-screen items-center justify-center p-6 text-center text-sm text-muted-foreground">
+        Área restrita ao administrador. Redirecionando para o login…
+      </div>
+    );
+  }
+
+
 
   return (
     <div className="flex min-h-screen bg-background">
