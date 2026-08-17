@@ -5,12 +5,15 @@ import {
   ClipboardList,
   Clock,
   Crown,
+  DollarSign,
   LayoutDashboard,
   LogOut,
   Menu,
   Package,
+  Receipt,
   Settings,
   Tag,
+  TrendingUp,
   Users,
   Wallet,
 } from "lucide-react";
@@ -26,6 +29,10 @@ import { cn } from "@/lib/utils";
 
 const menu = [
   { to: "/admin", label: "Dashboard", icon: LayoutDashboard },
+  { to: "/admin/vendas", label: "Vendas", icon: TrendingUp },
+  { to: "/admin/despesas", label: "Despesas", icon: Receipt },
+  { to: "/admin/lucro", label: "Lucro", icon: DollarSign },
+  { to: "/admin/financeiro", label: "Financeiro", icon: BarChart3 },
   { to: "/admin/pedidos", label: "Pedidos", icon: ClipboardList },
   { to: "/admin/clientes", label: "Clientes", icon: Users },
   { to: "/admin/produtos", label: "Produtos", icon: Package },
@@ -36,6 +43,7 @@ const menu = [
   { to: "/admin/pico", label: "Horários de Pico", icon: Clock },
   { to: "/admin/configuracoes", label: "Configurações", icon: Settings },
 ] as const;
+
 
 function MenuList({ onNavigate }: { onNavigate?: () => void }) {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
