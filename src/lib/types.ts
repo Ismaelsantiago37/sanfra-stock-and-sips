@@ -60,6 +60,8 @@ export type CategoryId =
   | "agua"
   | "gelo"
   | "combos"
+  | "narguile"
+  | "essencias"
   | "outros";
 
 export interface Category {
@@ -78,6 +80,17 @@ export interface Product {
   stock: number;
   timesOrdered: number;
   active: boolean;
+  /** Aluguel (ex.: narguilé): valores por hora/dia e juros de atraso na devolução */
+  rental?:
+    | {
+        hourly: number;
+        daily: number;
+        /** juros por dia de atraso na devolução, em % */
+        lateInterestPercent: number;
+        /** desconto para consumir no local em vez de alugar, em % */
+        onSiteDiscountPercent: number;
+      }
+    | undefined;
 }
 
 export interface Promotion {

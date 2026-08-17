@@ -30,7 +30,7 @@ function AdminPendentes() {
   const recebido = pendings.filter((p) => p.status === "PAGO").reduce((s, p) => s + p.amount, 0);
 
   return (
-    <AdminLayout title="Valores pendentes" description="Controle do fiado e das cobranças">
+    <AdminLayout title="Valores pendentes" description="Fiado registrado apenas em vendas presenciais no balcão">
       <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <Kpi label="A receber" value={brl(aReceber)} icon={Wallet} />
         <Kpi label="Em atraso" value={brl(atrasado)} icon={AlertTriangle} tone="negative" />
@@ -38,7 +38,13 @@ function AdminPendentes() {
         <Kpi label="Clientes com pendência" value={String(new Set(pendings.filter((p) => p.status !== "PAGO").map((p) => p.customerId)).size)} />
       </div>
 
-      <Panel title="Cobranças" className="mt-4">
+      <p className="mt-4 rounded-lg border border-primary/40 bg-primary/5 p-3 text-sm text-muted-foreground">
+        Só entram aqui as compras feitas <strong className="text-foreground">presencialmente no
+        balcão</strong>. Pedidos pelo site exigem pagamento na hora (Pix, cartão ou dinheiro), então
+        não geram valor pendente.
+      </p>
+
+      <Panel title="Cobranças presenciais" className="mt-4">
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="text-left text-xs uppercase text-muted-foreground">
