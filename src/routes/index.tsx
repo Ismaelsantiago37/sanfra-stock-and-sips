@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Clock, Crown, MapPin, Store, Truck } from "lucide-react";
+import { Clock, Crown, Flame, MapPin, Store, Truck } from "lucide-react";
 
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Badge } from "@/components/ui/badge";
@@ -8,6 +8,8 @@ import { categories } from "@/lib/mock-data";
 import { levelPerks, useApp } from "@/lib/store";
 
 import mapa from "@/assets/mapa-adega.jpg";
+import narguileFoto from "@/assets/narguile-vitrine.png.asset.json";
+import essenciasFoto from "@/assets/essencias-vitrine.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -141,6 +143,78 @@ function Home() {
               <Link to="/checkout">Pedir para retirada</Link>
             </Button>
           </div>
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-6xl px-4 pb-10">
+        <h2 className="flex items-center gap-2 font-display text-2xl">
+          <Flame className="h-5 w-5 text-primary" /> Narguilé & essências
+        </h2>
+        <p className="mt-1 text-sm text-muted-foreground">
+          Além das bebidas, a adega monta, vende e aluga narguilé — com rosh, carvão e essências de
+          vários sabores.
+        </p>
+        <div className="mt-4 grid gap-4 lg:grid-cols-2">
+          <article className="overflow-hidden rounded-xl border border-border bg-card">
+            <img
+              src={narguileFoto.url}
+              alt="Narguilé completo montado no balcão da Adega do Sanfra"
+              loading="lazy"
+              width={800}
+              height={1000}
+              className="h-60 w-full object-cover"
+            />
+            <div className="p-4">
+              <p className="font-display text-xl">Aluguel por hora ou por diária</p>
+              <ul className="mt-2 space-y-1 text-sm text-muted-foreground">
+                <li>• Narguilé completo: R$ 25/hora ou R$ 79,90 na diária</li>
+                <li>• Premium de vidro: R$ 39,90/hora ou R$ 119,90 na diária</li>
+                <li>• Vendemos também rosh de barro e silicone, mangueira e carvão de coco</li>
+              </ul>
+              <p className="mt-3 rounded-lg border border-primary/40 bg-primary/5 p-3 text-xs text-muted-foreground">
+                Atenção: se o narguilé não voltar dentro do prazo combinado, é cobrado juros de
+                atraso de <strong className="text-primary">10% a 12% ao dia</strong> sobre o valor do
+                aluguel.
+              </p>
+              <p className="mt-2 text-xs text-muted-foreground">
+                Prefere fumar aqui na adega? Você ganha{" "}
+                <strong className="text-primary">até 25% de desconto</strong> em vez de alugar para
+                levar.
+              </p>
+              <Button asChild size="sm" className="mt-3">
+                <Link to="/produtos" search={{ cat: "narguile" }}>
+                  Ver narguilé e acessórios
+                </Link>
+              </Button>
+            </div>
+          </article>
+
+          <article className="overflow-hidden rounded-xl border border-border bg-card">
+            <img
+              src={essenciasFoto.url}
+              alt="Prateleira com caixas de essências de narguilé de vários sabores"
+              loading="lazy"
+              width={800}
+              height={620}
+              className="h-60 w-full object-cover"
+            />
+            <div className="p-4">
+              <p className="font-display text-xl">Essências de todos os sabores</p>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Melancia com menta, uva verde, maracujá, menta ice, chiclete, blueberry, limão
+                siciliano e mais — nacionais e importadas, de R$ 19,90 a R$ 27,90. Tem combo com 3
+                sabores à escolha.
+              </p>
+              <p className="mt-3 text-xs text-muted-foreground">
+                Venda proibida para menores de 18 anos. O consumo de tabaco faz mal à saúde.
+              </p>
+              <Button asChild size="sm" variant="outline" className="mt-3">
+                <Link to="/produtos" search={{ cat: "essencias" }}>
+                  Ver essências
+                </Link>
+              </Button>
+            </div>
+          </article>
         </div>
       </section>
 
