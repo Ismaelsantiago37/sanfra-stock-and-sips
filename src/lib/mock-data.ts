@@ -23,6 +23,22 @@ import imgCarvao from "@/assets/narguile-carvao.jpg";
 import imgRosh from "@/assets/narguile-rosh.jpg";
 import narguileFoto from "@/assets/narguile-vitrine.png.asset.json";
 import essenciasFoto from "@/assets/essencias-vitrine.png.asset.json";
+import fotoJack1L from "@/assets/whisky-jack-1l.jpg.asset.json";
+import fotoJack700 from "@/assets/whisky-jack-700.jpg.asset.json";
+import fotoRedLabel from "@/assets/whisky-red-label.jpg.asset.json";
+import fotoRoyalSalute from "@/assets/whisky-royal-salute.jpg.asset.json";
+import fotoWoodford from "@/assets/whisky-woodford.jpg.asset.json";
+import fotoTanqueray from "@/assets/gin-tanqueray.jpg.asset.json";
+import fotoBeefeater from "@/assets/gin-beefeater.jpg.asset.json";
+import fotoCorona from "@/assets/cerveja-corona.jpg.asset.json";
+import fotoCervejasImportadas from "@/assets/cervejas-importadas.jpg.asset.json";
+import fotoSmirnoff from "@/assets/vodka-smirnoff.jpg.asset.json";
+import fotoEnergetico from "@/assets/energetico.jpg.asset.json";
+import fotoRefrigerante from "@/assets/refrigerante.jpg.asset.json";
+import fotoAgua from "@/assets/agua.jpg.asset.json";
+import fotoGelo from "@/assets/gelo.jpg.asset.json";
+import fotoPetiscos from "@/assets/petiscos.jpg.asset.json";
+import fotoTonica from "@/assets/tonica.jpg.asset.json";
 
 export const categories: Category[] = [
   { id: "whisky", name: "Whisky", emoji: "🥃" },
@@ -54,6 +70,22 @@ const img = {
   /** foto real da vitrine da adega */
   narguileFoto: narguileFoto.url,
   essenciasFoto: essenciasFoto.url,
+  jack1L: fotoJack1L.url,
+  jack700: fotoJack700.url,
+  redLabel: fotoRedLabel.url,
+  royalSalute: fotoRoyalSalute.url,
+  woodford: fotoWoodford.url,
+  tanqueray: fotoTanqueray.url,
+  beefeater: fotoBeefeater.url,
+  corona: fotoCorona.url,
+  cervejasImportadas: fotoCervejasImportadas.url,
+  smirnoff: fotoSmirnoff.url,
+  energetico: fotoEnergetico.url,
+  refrigerante: fotoRefrigerante.url,
+  agua: fotoAgua.url,
+  gelo: fotoGelo.url,
+  petiscos: fotoPetiscos.url,
+  tonica: fotoTonica.url,
 };
 
 export const products: Product[] = [
