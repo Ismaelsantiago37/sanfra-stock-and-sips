@@ -27,7 +27,7 @@ export function Map3D() {
 
   return (
     <div
-      className="relative h-64 w-full overflow-hidden rounded-xl border border-border bg-[radial-gradient(circle_at_50%_20%,hsl(var(--card))_0%,hsl(var(--background))_75%)] sm:h-80"
+      className="relative h-64 w-full overflow-hidden rounded-xl border border-border bg-[radial-gradient(circle_at_50%_20%,var(--card)_0%,var(--background)_75%)] sm:h-80"
       style={{ perspective: "900px" }}
       onMouseEnter={() => setGirar(true)}
       onMouseLeave={() => setGirar(false)}
@@ -67,7 +67,7 @@ export function Map3D() {
             <div
               className={
                 b.destaque
-                  ? "h-full w-full rounded-[3px] border border-primary bg-primary shadow-[0_0_28px_hsl(var(--primary)/0.55)]"
+                  ? "h-full w-full rounded-[3px] border border-primary bg-primary shadow-[0_0_28px_color-mix(in_oklab,var(--primary)_55%,transparent)]"
                   : "h-full w-full rounded-[3px] border border-border bg-card"
               }
             />
