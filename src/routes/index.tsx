@@ -108,16 +108,7 @@ function Home() {
           Passe aqui e retire seu pedido no balcão — sem taxa de entrega.
         </p>
         <div className="mt-4 grid gap-4 lg:grid-cols-[1.4fr_1fr]">
-          <div className="overflow-hidden rounded-xl border border-border">
-            <img
-              src={mapa}
-              alt="Mapa ilustrativo da localização da Adega do Sanfra no bairro"
-              loading="lazy"
-              width={1200}
-              height={800}
-              className="h-64 w-full object-cover sm:h-80"
-            />
-          </div>
+          <Map3D />
           <div className="rounded-xl border border-border bg-card p-5">
             <p className="font-display text-xl">Adega do Sanfra</p>
             <p className="mt-2 text-sm text-muted-foreground">
