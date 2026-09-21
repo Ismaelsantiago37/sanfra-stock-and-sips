@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 import { categories } from "@/lib/mock-data";
 import { levelPerks, useApp } from "@/lib/store";
 
-import mapa from "@/assets/mapa-adega.jpg";
+import { Map3D } from "@/components/site/Map3D";
 import narguileFoto from "@/assets/narguile-vitrine.png.asset.json";
 import essenciasFoto from "@/assets/essencias-vitrine.png.asset.json";
 
