@@ -22,14 +22,14 @@ type BoxProps = {
 
 function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
   const topClass = glow
-    ? "bg-[linear-gradient(140deg,var(--primary),color-mix(in_oklab,var(--primary)_70%,black))]"
-    : "bg-[linear-gradient(140deg,color-mix(in_oklab,var(--card)_85%,white_6%),var(--card))]";
+    ? "bg-[linear-gradient(140deg,var(--primary),color-mix(in_oklab,var(--primary)_72%,black))]"
+    : "bg-[linear-gradient(140deg,#3a3a3a,#2b2b2b)]";
   const sideBase = glow
-    ? "bg-[color-mix(in_oklab,var(--primary)_78%,black)]"
-    : "bg-[color-mix(in_oklab,var(--card)_70%,black)]";
+    ? "bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--primary)_70%,black),color-mix(in_oklab,var(--primary)_35%,black))]"
+    : "bg-[linear-gradient(to_bottom,#2e2e2e,#1c1c1c)]";
   const sideDark = glow
-    ? "bg-[color-mix(in_oklab,var(--primary)_52%,black)]"
-    : "bg-[color-mix(in_oklab,var(--card)_45%,black)]";
+    ? "bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--primary)_45%,black),color-mix(in_oklab,var(--primary)_18%,black))]"
+    : "bg-[linear-gradient(to_bottom,#232323,#131313)]";
 
   return (
     <div
@@ -42,11 +42,12 @@ function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
         transformStyle: "preserve-3d",
       }}
     >
-      {/* sombra projetada */}
+      {/* sombra projetada no solo */}
       <div
-        className="absolute inset-0 rounded-[4px] bg-black/60 blur-[6px]"
-        style={{ transform: "translate3d(6px, 8px, 0.5px)" }}
+        className="absolute inset-0 rounded-[4px] bg-black/70 blur-[5px]"
+        style={{ transform: "translate3d(10px, 12px, 0.2px)" }}
       />
+
 
       {/* topo */}
       <div
