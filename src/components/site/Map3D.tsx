@@ -23,13 +23,13 @@ type BoxProps = {
 function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
   const topClass = glow
     ? "bg-[linear-gradient(140deg,var(--primary),color-mix(in_oklab,var(--primary)_72%,black))]"
-    : "bg-[linear-gradient(140deg,#3a3a3a,#2b2b2b)]";
+    : "bg-[linear-gradient(140deg,#494949,#303030)]";
   const sideBase = glow
     ? "bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--primary)_70%,black),color-mix(in_oklab,var(--primary)_35%,black))]"
-    : "bg-[linear-gradient(to_bottom,#2e2e2e,#1c1c1c)]";
+    : "bg-[linear-gradient(to_bottom,#4d4d4d,#242424)]";
   const sideDark = glow
     ? "bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--primary)_45%,black),color-mix(in_oklab,var(--primary)_18%,black))]"
-    : "bg-[linear-gradient(to_bottom,#232323,#131313)]";
+    : "bg-[linear-gradient(to_bottom,#383838,#171717)]";
 
   return (
     <div
