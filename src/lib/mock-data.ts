@@ -39,6 +39,11 @@ import fotoAgua from "@/assets/agua.jpg.asset.json";
 import fotoGelo from "@/assets/gelo.jpg.asset.json";
 import fotoPetiscos from "@/assets/petiscos.jpg.asset.json";
 import fotoTonica from "@/assets/tonica.jpg.asset.json";
+import fotoPilsenLata from "@/assets/pilsen-lata.jpg.asset.json";
+import fotoLongNeck from "@/assets/longneck.jpg.asset.json";
+import fotoLitrao from "@/assets/litrao.jpg.asset.json";
+import fotoBlackLabel from "@/assets/black-label.jpg.asset.json";
+import fotoLicorChocolate from "@/assets/licor-chocolate.jpg.asset.json";
 
 export const categories: Category[] = [
   { id: "whisky", name: "Whisky", emoji: "🥃" },
@@ -86,16 +91,22 @@ const img = {
   gelo: fotoGelo.url,
   petiscos: fotoPetiscos.url,
   tonica: fotoTonica.url,
+  pilsenLata: fotoPilsenLata.url,
+  longNeck: fotoLongNeck.url,
+  litrao: fotoLitrao.url,
+  blackLabel: fotoBlackLabel.url,
+  licorChocolate: fotoLicorChocolate.url,
 };
 
 export const products: Product[] = [
   {
     id: "p1",
     name: "Cerveja Pilsen Lata 350ml",
-    description: "Gelada na hora, pack ou unidade. A clássica do rolê.",
+    description:
+      "Pilsen puro malte tirada direto do freezer, lata 350ml suando de gelada. Leve na unidade ou no pack de 12.",
     price: 4.9,
     categoryId: "cervejas",
-    image: img.cervejas,
+    image: img.pilsenLata,
     stock: 240,
     timesOrdered: 812,
     active: true,
@@ -103,10 +114,11 @@ export const products: Product[] = [
   {
     id: "p2",
     name: "Cerveja Long Neck 355ml",
-    description: "Puro malte, servida trincando de gelada.",
+    description:
+      "Long neck 355ml de lager puro malte, dourada e encorpada, servida trincando de gelada no balcão.",
     price: 7.5,
     categoryId: "cervejas",
-    image: img.cervejasImportadas,
+    image: img.longNeck,
     stock: 180,
     timesOrdered: 604,
     active: true,
@@ -114,10 +126,11 @@ export const products: Product[] = [
   {
     id: "p3",
     name: "Cerveja Litrão 1L Retornável",
-    description: "O litrão que salva a mesa. Casco retornável.",
+    description:
+      "O litrão de 1L que salva a mesa: cerveja lager gelada em casco retornável — devolva o casco e pague menos na próxima.",
     price: 12.9,
     categoryId: "cervejas",
-    image: img.cervejas,
+    image: img.litrao,
     stock: 96,
     timesOrdered: 431,
     active: true,
@@ -125,10 +138,11 @@ export const products: Product[] = [
   {
     id: "p4",
     name: "Whisky Black Label 12 anos 1L",
-    description: "Blended escocês 12 anos. O queridinho do balcão.",
+    description:
+      "Blended escocês envelhecido 12 anos, notas defumadas e de baunilha. Garrafa de 1L, o queridinho do balcão.",
     price: 189.9,
     categoryId: "whisky",
-    image: img.whisky,
+    image: img.blackLabel,
     stock: 14,
     timesOrdered: 188,
     active: true,
@@ -136,7 +150,8 @@ export const products: Product[] = [
   {
     id: "p5",
     name: "Vodka Smirnoff Nº21 998ml",
-    description: "Tripla destilação, a base certa pro drink de casa.",
+    description:
+      "Vodka de tripla destilação e dez filtragens, garrafa 998ml de tampa vermelha. Base certa pro drink de casa.",
     price: 44.9,
     categoryId: "destilados",
     image: img.smirnoff,
@@ -147,7 +162,8 @@ export const products: Product[] = [
   {
     id: "p6",
     name: "Gin Tanqueray London Dry 750ml",
-    description: "Quatro botânicos clássicos. Manda ver com tônica e limão.",
+    description:
+      "Gin London Dry com quatro botânicos clássicos na garrafa verde de 750ml. Manda ver com tônica, gelo e limão.",
     price: 129.9,
     categoryId: "destilados",
     image: img.tanqueray,
@@ -158,7 +174,8 @@ export const products: Product[] = [
   {
     id: "p7",
     name: "Whisky Johnnie Walker Red Label 750ml",
-    description: "Blended clássico, entra fácil com gelo e limão.",
+    description:
+      "Blended escocês de líquido âmbar e final picante, 750ml. Entra fácil com gelo, limão ou na long drink.",
     price: 99.9,
     categoryId: "whisky",
     image: img.redLabel,
@@ -169,10 +186,11 @@ export const products: Product[] = [
   {
     id: "p8",
     name: "Licor Cremoso de Chocolate 750ml",
-    description: "Doce na medida, servido gelado ou com gelo.",
+    description:
+      "Licor cremoso de chocolate 750ml, aveludado e doce na medida. Ótimo gelado, com gelo ou por cima do sorvete.",
     price: 64.9,
     categoryId: "licores",
-    image: img.licores,
+    image: img.licorChocolate,
     stock: 26,
     timesOrdered: 143,
     active: true,
