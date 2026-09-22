@@ -75,7 +75,7 @@ function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
           top: d,
           width: w,
           height: z,
-          transform: "rotateX(-90deg)",
+          transform: "rotateX(90deg)",
           transformOrigin: "top",
           transformStyle: "preserve-3d",
         }}
@@ -99,7 +99,7 @@ function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
           left: w,
           width: z,
           height: d,
-          transform: "rotateY(90deg)",
+          transform: "rotateY(-90deg)",
           transformOrigin: "left",
         }}
       >
