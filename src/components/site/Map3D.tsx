@@ -262,12 +262,12 @@ export function Map3D() {
             {/* haste */}
             <div
               className="absolute left-0 w-[2px] bg-[color-mix(in_oklab,var(--primary)_70%,black)]"
-              style={{ height: 46, bottom: 0, transform: `rotateX(${-ROT_X}deg)` }}
+              style={{ height: 74, bottom: 0, transform: `rotateX(${-ROT_X}deg)` }}
             />
             <div
               className="absolute -translate-x-1/2 whitespace-nowrap rounded-md border-2 border-primary bg-[color-mix(in_oklab,black_78%,var(--primary))] px-3 py-1.5 font-display text-[13px] uppercase tracking-[0.18em] text-primary"
               style={{
-                bottom: 46,
+                bottom: 74,
                 transform: `translateX(-50%) ${faceCamera}`,
                 textShadow:
                   "0 0 8px color-mix(in oklab, var(--primary) 85%, transparent), 0 0 20px color-mix(in oklab, var(--primary) 55%, transparent)",
