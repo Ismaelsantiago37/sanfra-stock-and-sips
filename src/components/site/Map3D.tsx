@@ -22,14 +22,14 @@ type BoxProps = {
 
 function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
   const topClass = glow
-    ? "bg-[linear-gradient(140deg,var(--primary),color-mix(in_oklab,var(--primary)_70%,black))]"
-    : "bg-[linear-gradient(140deg,color-mix(in_oklab,var(--card)_85%,white_6%),var(--card))]";
+    ? "bg-[linear-gradient(140deg,var(--primary),color-mix(in_oklab,var(--primary)_72%,black))]"
+    : "bg-[linear-gradient(140deg,#494949,#303030)]";
   const sideBase = glow
-    ? "bg-[color-mix(in_oklab,var(--primary)_78%,black)]"
-    : "bg-[color-mix(in_oklab,var(--card)_70%,black)]";
+    ? "bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--primary)_70%,black),color-mix(in_oklab,var(--primary)_35%,black))]"
+    : "bg-[linear-gradient(to_bottom,#4d4d4d,#242424)]";
   const sideDark = glow
-    ? "bg-[color-mix(in_oklab,var(--primary)_52%,black)]"
-    : "bg-[color-mix(in_oklab,var(--card)_45%,black)]";
+    ? "bg-[linear-gradient(to_bottom,color-mix(in_oklab,var(--primary)_45%,black),color-mix(in_oklab,var(--primary)_18%,black))]"
+    : "bg-[linear-gradient(to_bottom,#383838,#171717)]";
 
   return (
     <div
@@ -42,11 +42,12 @@ function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
         transformStyle: "preserve-3d",
       }}
     >
-      {/* sombra projetada */}
+      {/* sombra projetada no solo */}
       <div
-        className="absolute inset-0 rounded-[4px] bg-black/60 blur-[6px]"
-        style={{ transform: "translate3d(6px, 8px, 0.5px)" }}
+        className="absolute inset-0 rounded-[4px] bg-black/70 blur-[5px]"
+        style={{ transform: "translate3d(10px, 12px, 0.2px)" }}
       />
+
 
       {/* topo */}
       <div
@@ -69,30 +70,50 @@ function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
 
       {/* parede frontal (sul) */}
       <div
-        className={`absolute left-0 ${sideBase}`}
+        className={`absolute left-0 overflow-hidden ${sideBase}`}
         style={{
           top: d,
           width: w,
           height: z,
-          transform: "rotateX(-90deg)",
+          transform: "rotateX(90deg)",
           transformOrigin: "top",
           transformStyle: "preserve-3d",
         }}
       >
+        {!glow && (
+          <div
+            className="absolute inset-0 opacity-70"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(to right,transparent 0 8px,rgba(255,255,255,0.07) 8px 16px,transparent 16px 24px), repeating-linear-gradient(to bottom,transparent 0 10px,rgba(255,255,255,0.05) 10px 17px,transparent 17px 26px)",
+            }}
+          />
+        )}
         {children}
       </div>
 
       {/* parede lateral (leste) */}
       <div
-        className={`absolute top-0 ${sideDark}`}
+        className={`absolute top-0 overflow-hidden ${sideDark}`}
         style={{
           left: w,
           width: z,
           height: d,
-          transform: "rotateY(90deg)",
+          transform: "rotateY(-90deg)",
           transformOrigin: "left",
         }}
-      />
+      >
+        {!glow && (
+          <div
+            className="absolute inset-0 opacity-50"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(to bottom,transparent 0 8px,rgba(255,255,255,0.06) 8px 15px,transparent 15px 24px)",
+            }}
+          />
+        )}
+      </div>
+
     </div>
   );
 }
@@ -241,12 +262,12 @@ export function Map3D() {
             {/* haste */}
             <div
               className="absolute left-0 w-[2px] bg-[color-mix(in_oklab,var(--primary)_70%,black)]"
-              style={{ height: 46, bottom: 0, transform: `rotateX(${-ROT_X}deg)` }}
+              style={{ height: 74, bottom: 0, transform: `rotateX(${-ROT_X}deg)` }}
             />
             <div
               className="absolute -translate-x-1/2 whitespace-nowrap rounded-md border-2 border-primary bg-[color-mix(in_oklab,black_78%,var(--primary))] px-3 py-1.5 font-display text-[13px] uppercase tracking-[0.18em] text-primary"
               style={{
-                bottom: 46,
+                bottom: 74,
                 transform: `translateX(-50%) ${faceCamera}`,
                 textShadow:
                   "0 0 8px color-mix(in oklab, var(--primary) 85%, transparent), 0 0 20px color-mix(in oklab, var(--primary) 55%, transparent)",
