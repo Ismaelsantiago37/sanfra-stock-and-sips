@@ -70,7 +70,7 @@ function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
 
       {/* parede frontal (sul) */}
       <div
-        className={`absolute left-0 ${sideBase}`}
+        className={`absolute left-0 overflow-hidden ${sideBase}`}
         style={{
           top: d,
           width: w,
@@ -80,12 +80,21 @@ function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
           transformStyle: "preserve-3d",
         }}
       >
+        {!glow && (
+          <div
+            className="absolute inset-0 opacity-70"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(to right,transparent 0 8px,rgba(255,255,255,0.07) 8px 16px,transparent 16px 24px), repeating-linear-gradient(to bottom,transparent 0 10px,rgba(255,255,255,0.05) 10px 17px,transparent 17px 26px)",
+            }}
+          />
+        )}
         {children}
       </div>
 
       {/* parede lateral (leste) */}
       <div
-        className={`absolute top-0 ${sideDark}`}
+        className={`absolute top-0 overflow-hidden ${sideDark}`}
         style={{
           left: w,
           width: z,
@@ -93,7 +102,18 @@ function Box({ x, y, w, d, z, glow = false, icon, children }: BoxProps) {
           transform: "rotateY(90deg)",
           transformOrigin: "left",
         }}
-      />
+      >
+        {!glow && (
+          <div
+            className="absolute inset-0 opacity-50"
+            style={{
+              backgroundImage:
+                "repeating-linear-gradient(to bottom,transparent 0 8px,rgba(255,255,255,0.06) 8px 15px,transparent 15px 24px)",
+            }}
+          />
+        )}
+      </div>
+
     </div>
   );
 }
