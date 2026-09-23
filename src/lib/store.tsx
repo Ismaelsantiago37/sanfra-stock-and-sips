@@ -190,7 +190,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const p = products.find((x) => x.id === i.productId)!;
         return {
           productId: p.id,
-          name: p.name,
+          name: i.variant ? `${p.name} — ${i.variant}` : p.name,
           unitPrice: priceOf(p.id),
           quantity: i.quantity,
         };
@@ -287,6 +287,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     logout,
     addToCart,
     setQuantity,
+    setVariant,
     clearCart,
     cartCount,
     cartSubtotal,
