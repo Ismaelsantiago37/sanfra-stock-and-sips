@@ -38,8 +38,9 @@ interface AppState {
   login: (email: string, password: string) => Promise<User>;
   logout: () => void;
   // cart
-  addToCart: (productId: string, quantity?: number) => void;
-  setQuantity: (productId: string, quantity: number) => void;
+  addToCart: (productId: string, quantity?: number, variant?: string) => void;
+  setQuantity: (productId: string, quantity: number, variant?: string) => void;
+  setVariant: (productId: string, currentVariant: string | undefined, variant: string) => void;
   clearCart: () => void;
   cartCount: number;
   cartSubtotal: number;
@@ -120,24 +121,47 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const logout = useCallback(() => setUser(null), []);
 
-  const addToCart = useCallback((productId: string, quantity = 1) => {
+  const sameLine = (i: CartItem, productId: string, variant?: string) =>
+    i.productId === productId && (i.variant ?? "") === (variant ?? "");
+
+  const addToCart = useCallback((productId: string, quantity = 1, variant?: string) => {
     setCart((prev) => {
-      const existing = prev.find((i) => i.productId === productId);
+      const existing = prev.find((i) => sameLine(i, productId, variant));
       if (existing)
         return prev.map((i) =>
-          i.productId === productId ? { ...i, quantity: i.quantity + quantity } : i,
+          sameLine(i, productId, variant) ? { ...i, quantity: i.quantity + quantity } : i,
         );
-      return [...prev, { productId, quantity }];
+      return [...prev, { productId, quantity, variant }];
     });
   }, []);
 
-  const setQuantity = useCallback((productId: string, quantity: number) => {
+  const setQuantity = useCallback((productId: string, quantity: number, variant?: string) => {
     setCart((prev) =>
       quantity <= 0
-        ? prev.filter((i) => i.productId !== productId)
-        : prev.map((i) => (i.productId === productId ? { ...i, quantity } : i)),
+        ? prev.filter((i) => !sameLine(i, productId, variant))
+        : prev.map((i) => (sameLine(i, productId, variant) ? { ...i, quantity } : i)),
     );
   }, []);
+
+  const setVariant = useCallback(
+    (productId: string, currentVariant: string | undefined, variant: string) => {
+      setCart((prev) => {
+        const line = prev.find((i) => sameLine(i, productId, currentVariant));
+        if (!line) return prev;
+        const target = prev.find((i) => sameLine(i, productId, variant));
+        if (target && target !== line)
+          return prev
+            .filter((i) => !sameLine(i, productId, currentVariant))
+            .map((i) =>
+              sameLine(i, productId, variant)
+                ? { ...i, quantity: i.quantity + line.quantity }
+                : i,
+            );
+        return prev.map((i) => (sameLine(i, productId, currentVariant) ? { ...i, variant } : i));
+      });
+    },
+    [],
+  );
 
   const clearCart = useCallback(() => setCart([]), []);
 
@@ -166,7 +190,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const p = products.find((x) => x.id === i.productId)!;
         return {
           productId: p.id,
-          name: p.name,
+          name: i.variant ? `${p.name} — ${i.variant}` : p.name,
           unitPrice: priceOf(p.id),
           quantity: i.quantity,
         };
@@ -263,6 +287,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     logout,
     addToCart,
     setQuantity,
+    setVariant,
     clearCart,
     cartCount,
     cartSubtotal,

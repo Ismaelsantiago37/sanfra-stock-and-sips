@@ -80,6 +80,8 @@ export interface Product {
   stock: number;
   timesOrdered: number;
   active: boolean;
+  /** Opções de tamanho/variação que o cliente escolhe no carrinho */
+  variants?: string[] | undefined;
   /** Aluguel (ex.: narguilé): valores por hora/dia e juros de atraso na devolução */
   rental?:
     | {
@@ -177,4 +179,6 @@ export interface AppNotification {
 export interface CartItem {
   productId: string;
   quantity: number;
+  /** tamanho/variação escolhido pelo cliente */
+  variant?: string | undefined;
 }
