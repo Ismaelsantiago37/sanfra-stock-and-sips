@@ -39,6 +39,10 @@ import fotoAgua from "@/assets/agua.jpg.asset.json";
 import fotoGelo from "@/assets/gelo.jpg.asset.json";
 import fotoPetiscos from "@/assets/petiscos.jpg.asset.json";
 import fotoTonica from "@/assets/tonica.jpg.asset.json";
+import fotoEnergeticosDisplay from "@/assets/energeticos-display.jpg";
+import fotoRefrigerantesDisplay from "@/assets/refrigerantes-display.jpg";
+import fotoAguaDisplay from "@/assets/agua-display.jpg";
+import fotoAguaGasDisplay from "@/assets/agua-gas-display.jpg";
 import fotoPilsenLata from "@/assets/pilsen-lata.jpg.asset.json";
 import fotoLongNeck from "@/assets/longneck.jpg.asset.json";
 import fotoLitrao from "@/assets/litrao.jpg.asset.json";
@@ -91,6 +95,10 @@ const img = {
   gelo: fotoGelo.url,
   petiscos: fotoPetiscos.url,
   tonica: fotoTonica.url,
+  energeticosDisplay: fotoEnergeticosDisplay,
+  refrigerantesDisplay: fotoRefrigerantesDisplay,
+  aguaDisplay: fotoAguaDisplay,
+  aguaGasDisplay: fotoAguaGasDisplay,
   pilsenLata: fotoPilsenLata.url,
   longNeck: fotoLongNeck.url,
   litrao: fotoLitrao.url,
@@ -330,10 +338,11 @@ export const products: Product[] = [
   {
     id: "p28",
     name: "Energético Zero Açúcar 269ml",
-    description: "Versão leve, sem açúcar, pra misturar com vodka.",
+    description:
+      "Diversas marcas e sabores. Escolha o seu: Red Bull (vários tamanhos), Monster, Baly e mais.",
     price: 9.9,
     categoryId: "energeticos",
-    image: img.energetico,
+    image: img.energeticosDisplay,
     stock: 90,
     timesOrdered: 174,
     active: true,
@@ -341,32 +350,35 @@ export const products: Product[] = [
   {
     id: "p10",
     name: "Refrigerante 2L",
-    description: "Geladíssimo, o coringa da mistura.",
+    description:
+      "Coca-Cola 2L em destaque. Consulte também opções de 1L, 600ml, 350ml e outros sabores (Fanta, Sprite, Guaraná).",
     price: 9.9,
     categoryId: "refrigerantes",
-    image: img.refrigerante,
+    image: img.refrigerantesDisplay,
     stock: 88,
     timesOrdered: 302,
     active: true,
   },
   {
     id: "p11",
-    name: "Água Mineral 1,5L",
-    description: "Sem gás, pra segurar o rolê.",
+    name: "Água Mineral São Lourenço 1,5L",
+    description:
+      "Água sem gás 1,5L. Temos também opções de 500ml e 1L das marcas São Lourenço e Minalba.",
     price: 4.5,
     categoryId: "agua",
-    image: img.agua,
+    image: img.aguaDisplay,
     stock: 150,
     timesOrdered: 175,
     active: true,
   },
   {
     id: "p29",
-    name: "Água com Gás 500ml",
-    description: "Gelada, pra dar um tempo entre uma dose e outra.",
+    name: "Água Mineral com Gás Perrier 500ml",
+    description:
+      "Perrier 500ml gelada. Disponível também em 330ml e opções de outras marcas como São Lourenço.",
     price: 5.5,
     categoryId: "agua",
-    image: img.agua,
+    image: img.aguaGasDisplay,
     stock: 110,
     timesOrdered: 98,
     active: true,
