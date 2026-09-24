@@ -1,11 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Clock, Tag } from "lucide-react";
-import { toast } from "sonner";
 
 import { AddToCartButton } from "@/components/site/AddToCartDialog";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { brl, dateBR } from "@/lib/format";
 import { useApp } from "@/lib/store";
 
