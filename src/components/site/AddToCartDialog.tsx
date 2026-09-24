@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -169,5 +170,25 @@ export function AddToCartDialog({
         </div>
       </DialogContent>
     </Dialog>
+  );
+}
+
+export function AddToCartButton({
+  product,
+  children,
+  size,
+}: {
+  product: Product;
+  children: ReactNode;
+  size?: "sm" | "default";
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <Button size={size} onClick={() => setOpen(true)}>
+        {children}
+      </Button>
+      <AddToCartDialog product={product} open={open} onOpenChange={setOpen} />
+    </>
   );
 }

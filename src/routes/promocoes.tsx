@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Clock, Tag } from "lucide-react";
 import { toast } from "sonner";
 
+import { AddToCartButton } from "@/components/site/AddToCartDialog";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -25,7 +26,7 @@ export const Route = createFileRoute("/promocoes")({
 });
 
 function Promocoes() {
-  const { promotions, products, addToCart } = useApp();
+  const { promotions, products } = useApp();
   const list = promotions.filter((p) => p.active);
 
   return (
@@ -73,14 +74,7 @@ function Promocoes() {
                       </p>
                       <p className="font-display text-2xl text-primary">{brl(promo.newPrice)}</p>
                     </div>
-                    <Button
-                      onClick={() => {
-                        addToCart(product.id);
-                        toast.success("Promoção no carrinho", { description: product.name });
-                      }}
-                    >
-                      Aproveitar
-                    </Button>
+                    <AddToCartButton product={product}>Aproveitar</AddToCartButton>
                   </div>
                 </div>
               </article>
