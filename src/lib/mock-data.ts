@@ -705,7 +705,6 @@ export const products: Product[] = [
     stock: 15,
     timesOrdered: 84,
     active: true,
-    options: { kind: "flavor", flavors: ["Melancia com Menta", "Uva Verde", "Maracujá", "Menta Ice", "Chiclete", "Blueberry", "Limão Siciliano"] },
   },
 ];
 
