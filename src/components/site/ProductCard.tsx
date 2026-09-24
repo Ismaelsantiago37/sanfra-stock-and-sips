@@ -1,15 +1,13 @@
 import { Plus } from "lucide-react";
-import { toast } from "sonner";
 
+import { AddToCartButton } from "@/components/site/AddToCartDialog";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { brl } from "@/lib/format";
-import { useApp, usePriceOf } from "@/lib/store";
+import { usePriceOf } from "@/lib/store";
 import type { Product } from "@/lib/types";
 
 export function ProductCard({ product }: { product: Product }) {
-  const { addToCart } = useApp();
-  const priceOf = usePriceOf();
+    const priceOf = usePriceOf();
   const { price, oldPrice } = priceOf(product.id);
   const off = oldPrice ? Math.round((1 - price / oldPrice) * 100) : 0;
 
@@ -60,15 +58,9 @@ export function ProductCard({ product }: { product: Product }) {
             )}
             <p className="font-display text-xl text-primary">{brl(price)}</p>
           </div>
-          <Button
-            size="sm"
-            onClick={() => {
-              addToCart(product.id);
-              toast.success("Adicionado ao carrinho", { description: product.name });
-            }}
-          >
+          <AddToCartButton product={product} size="sm">
             <Plus className="h-4 w-4" /> Add
-          </Button>
+          </AddToCartButton>
         </div>
       </div>
     </article>

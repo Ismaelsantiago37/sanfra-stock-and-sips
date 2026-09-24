@@ -39,6 +39,17 @@ import fotoAgua from "@/assets/agua.jpg.asset.json";
 import fotoGelo from "@/assets/gelo.jpg.asset.json";
 import fotoPetiscos from "@/assets/petiscos.jpg.asset.json";
 import fotoTonica from "@/assets/tonica.jpg.asset.json";
+import essMelancia from "@/assets/ess-melancia.jpg";
+import essUva from "@/assets/ess-uva.jpg";
+import essMaracuja from "@/assets/ess-maracuja.jpg";
+import essMentaIce from "@/assets/ess-menta-ice.jpg";
+import essChiclete from "@/assets/ess-chiclete.jpg";
+import essBlueberry from "@/assets/ess-blueberry.jpg";
+import essLimao from "@/assets/ess-limao.jpg";
+import essCombo from "@/assets/ess-combo.jpg";
+import linhaZiggy from "@/assets/essencia-ziggy.jpg.asset.json";
+import linhaZomo from "@/assets/essencia-zomo.jpg.asset.json";
+import linhaAlFakher from "@/assets/essencia-alfakher.jpg.asset.json";
 import fotoEnergeticosDisplay from "@/assets/energeticos-display.jpg";
 import fotoRefrigerantesDisplay from "@/assets/refrigerantes-display.jpg";
 import fotoAguaDisplay from "@/assets/agua-display.jpg";
@@ -99,6 +110,10 @@ const img = {
   refrigerantesDisplay: fotoRefrigerantesDisplay,
   aguaDisplay: fotoAguaDisplay,
   aguaGasDisplay: fotoAguaGasDisplay,
+  essMelancia, essUva, essMaracuja, essMentaIce, essChiclete, essBlueberry, essLimao, essCombo,
+  linhaZiggy: linhaZiggy.url,
+  linhaZomo: linhaZomo.url,
+  linhaAlFakher: linhaAlFakher.url,
   pilsenLata: fotoPilsenLata.url,
   longNeck: fotoLongNeck.url,
   litrao: fotoLitrao.url,
@@ -334,6 +349,7 @@ export const products: Product[] = [
     stock: 120,
     timesOrdered: 389,
     active: true,
+    options: { kind: "size", sizes: [{ label: "Red Bull 250ml", price: 9.9 }, { label: "Red Bull 355ml", price: 12.9 }, { label: "Monster 473ml", price: 11.9 }, { label: "Baly 2L", price: 16.9 }] },
   },
   {
     id: "p28",
@@ -346,6 +362,7 @@ export const products: Product[] = [
     stock: 90,
     timesOrdered: 174,
     active: true,
+    options: { kind: "size", sizes: [{ label: "Red Bull Sugarfree 269ml", price: 9.9 }, { label: "Red Bull Tradicional 350ml", price: 12.9 }, { label: "Monster Original 473ml", price: 11.9 }, { label: "Monster Zero 473ml", price: 12.5 }] },
   },
   {
     id: "p10",
@@ -358,6 +375,7 @@ export const products: Product[] = [
     stock: 88,
     timesOrdered: 302,
     active: true,
+    options: { kind: "size", sizes: [{ label: "Coca-Cola 350ml (lata)", price: 5.5 }, { label: "Coca-Cola 600ml", price: 7.5 }, { label: "Coca-Cola 1L", price: 8.5 }, { label: "Coca-Cola 2 Litros", price: 9.9 }, { label: "Fanta Laranja 2 Litros", price: 8.9 }, { label: "Guaraná Antarctica 2 Litros", price: 8.9 }] },
   },
   {
     id: "p11",
@@ -370,6 +388,7 @@ export const products: Product[] = [
     stock: 150,
     timesOrdered: 175,
     active: true,
+    options: { kind: "size", sizes: [{ label: "São Lourenço 500ml", price: 2.9 }, { label: "Minalba 1L", price: 3.9 }, { label: "São Lourenço 1,5L", price: 4.5 }] },
   },
   {
     id: "p29",
@@ -382,6 +401,7 @@ export const products: Product[] = [
     stock: 110,
     timesOrdered: 98,
     active: true,
+    options: { kind: "size", sizes: [{ label: "Perrier 330ml", price: 4.5 }, { label: "Perrier 500ml", price: 5.5 }, { label: "São Lourenço c/ gás 500ml", price: 3.9 }] },
   },
   {
     id: "p12",
@@ -563,12 +583,48 @@ export const products: Product[] = [
     active: true,
   },
   {
+    id: "z1",
+    name: "Essência Ziggy 50g — linha completa",
+    description: "Escolha seus sabores e quantidades no momento da compra.",
+    price: 19.9,
+    categoryId: "essencias",
+    image: img.linhaZiggy,
+    stock: 80,
+    timesOrdered: 310,
+    active: true,
+    options: { kind: "flavor", flavors: ["Melancia com Menta", "Uva Verde", "Maracujá", "Blueberry", "Menta Ice", "Chiclete", "Limão Siciliano", "Premium Dark"] },
+  },
+  {
+    id: "z2",
+    name: "Essência Zomo 50g — linha completa",
+    description: "Escolha seus sabores e quantidades no momento da compra.",
+    price: 18.9,
+    categoryId: "essencias",
+    image: img.linhaZomo,
+    stock: 90,
+    timesOrdered: 287,
+    active: true,
+    options: { kind: "flavor", flavors: ["Melancia com Menta", "Uva Verde", "Maracujá", "Blueberry", "Menta Ice", "My Gum", "Two Apple", "Strawberry Creamy", "Tropicano"] },
+  },
+  {
+    id: "z3",
+    name: "Essência Al Fakher 50g — linha completa",
+    description: "Escolha seus sabores e quantidades no momento da compra.",
+    price: 24.9,
+    categoryId: "essencias",
+    image: img.linhaAlFakher,
+    stock: 60,
+    timesOrdered: 245,
+    active: true,
+    options: { kind: "flavor", flavors: ["Melancia com Menta", "Uva", "Maracujá", "Blueberry", "Menta", "Chiclete", "Limão", "Morango", "Duas Maçãs"] },
+  },
+  {
     id: "e1",
     name: "Essência Melancia com Menta 50g",
     description: "Refrescante e docinha, a mais pedida do balcão.",
     price: 19.9,
     categoryId: "essencias",
-    image: img.essenciasFoto,
+    image: img.essMelancia,
     stock: 40,
     timesOrdered: 264,
     active: true,
@@ -579,7 +635,7 @@ export const products: Product[] = [
     description: "Frutada e leve, boa pra sessão longa.",
     price: 19.9,
     categoryId: "essencias",
-    image: img.essenciasFoto,
+    image: img.essUva,
     stock: 36,
     timesOrdered: 201,
     active: true,
@@ -590,7 +646,7 @@ export const products: Product[] = [
     description: "Azedinha na medida, combina com gelo na base.",
     price: 19.9,
     categoryId: "essencias",
-    image: img.essenciasFoto,
+    image: img.essMaracuja,
     stock: 28,
     timesOrdered: 158,
     active: true,
@@ -601,7 +657,7 @@ export const products: Product[] = [
     description: "Gelada de verdade, pra quem gosta de sentir o frio.",
     price: 21.9,
     categoryId: "essencias",
-    image: img.essenciasFoto,
+    image: img.essMentaIce,
     stock: 33,
     timesOrdered: 176,
     active: true,
@@ -612,7 +668,7 @@ export const products: Product[] = [
     description: "Doce e nostálgica, sucesso com a galera nova.",
     price: 21.9,
     categoryId: "essencias",
-    image: img.essenciasFoto,
+    image: img.essChiclete,
     stock: 25,
     timesOrdered: 129,
     active: true,
@@ -623,7 +679,7 @@ export const products: Product[] = [
     description: "Importada, sabor marcante de frutas vermelhas.",
     price: 27.9,
     categoryId: "essencias",
-    image: img.essenciasFoto,
+    image: img.essBlueberry,
     stock: 16,
     timesOrdered: 112,
     active: true,
@@ -634,7 +690,7 @@ export const products: Product[] = [
     description: "Cítrica e suave, ótima para misturar com menta.",
     price: 22.9,
     categoryId: "essencias",
-    image: img.essenciasFoto,
+    image: img.essLimao,
     stock: 21,
     timesOrdered: 96,
     active: true,
@@ -645,7 +701,7 @@ export const products: Product[] = [
     description: "Monte seu kit com três sabores e economize.",
     price: 54.9,
     categoryId: "essencias",
-    image: img.essenciasFoto,
+    image: img.essCombo,
     stock: 15,
     timesOrdered: 84,
     active: true,

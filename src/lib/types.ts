@@ -80,8 +80,8 @@ export interface Product {
   stock: number;
   timesOrdered: number;
   active: boolean;
-  /** Opções de tamanho/variação que o cliente escolhe no carrinho */
-  variants?: string[] | undefined;
+  /** Variações escolhidas na hora da compra: sabores (por unidade) ou tamanhos com preço */
+  options?: ProductOptions | undefined;
   /** Aluguel (ex.: narguilé): valores por hora/dia e juros de atraso na devolução */
   rental?:
     | {
@@ -179,6 +179,12 @@ export interface AppNotification {
 export interface CartItem {
   productId: string;
   quantity: number;
-  /** tamanho/variação escolhido pelo cliente */
-  variant?: string | undefined;
+  /** tamanho escolhido (produtos com opção de tamanho) */
+  size?: string | undefined;
+  /** um sabor por unidade (produtos com opção de sabor) */
+  flavors?: string[] | undefined;
 }
+
+export type ProductOptions =
+  | { kind: "flavor"; flavors: string[] }
+  | { kind: "size"; sizes: { label: string; price: number }[] };
