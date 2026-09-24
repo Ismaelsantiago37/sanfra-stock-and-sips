@@ -1,4 +1,5 @@
 import { Minus, Plus } from "lucide-react";
+import type { ReactNode } from "react";
 
 import { Button } from "@/components/ui/button";
 import { brl } from "@/lib/format";
@@ -12,7 +13,7 @@ export function Chip({
 }: {
   active: boolean;
   onClick: () => void;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }) {
   return (
