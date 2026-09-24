@@ -38,9 +38,14 @@ interface AppState {
   login: (email: string, password: string) => Promise<User>;
   logout: () => void;
   // cart
-  addToCart: (productId: string, quantity?: number, variant?: string) => void;
-  setQuantity: (productId: string, quantity: number, variant?: string) => void;
-  setVariant: (productId: string, currentVariant: string | undefined, variant: string) => void;
+  addToCart: (
+    productId: string,
+    quantity?: number,
+    extra?: { size?: string | undefined; flavors?: string[] | undefined },
+  ) => void;
+  /** substitui (ou remove, com null) uma linha do carrinho */
+  updateCartLine: (index: number, item: CartItem | null) => void;
+  unitPriceOf: (item: CartItem) => number;
   clearCart: () => void;
   cartCount: number;
   cartSubtotal: number;
@@ -121,47 +126,42 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const logout = useCallback(() => setUser(null), []);
 
-  const sameLine = (i: CartItem, productId: string, variant?: string) =>
-    i.productId === productId && (i.variant ?? "") === (variant ?? "");
-
-  const addToCart = useCallback((productId: string, quantity = 1, variant?: string) => {
-    setCart((prev) => {
-      const existing = prev.find((i) => sameLine(i, productId, variant));
-      if (existing)
-        return prev.map((i) =>
-          sameLine(i, productId, variant) ? { ...i, quantity: i.quantity + quantity } : i,
-        );
-      return [...prev, { productId, quantity, variant }];
-    });
-  }, []);
-
-  const setQuantity = useCallback((productId: string, quantity: number, variant?: string) => {
-    setCart((prev) =>
-      quantity <= 0
-        ? prev.filter((i) => !sameLine(i, productId, variant))
-        : prev.map((i) => (sameLine(i, productId, variant) ? { ...i, quantity } : i)),
-    );
-  }, []);
-
-  const setVariant = useCallback(
-    (productId: string, currentVariant: string | undefined, variant: string) => {
+  const addToCart = useCallback(
+    (
+      productId: string,
+      quantity = 1,
+      extra?: { size?: string | undefined; flavors?: string[] | undefined },
+    ) => {
       setCart((prev) => {
-        const line = prev.find((i) => sameLine(i, productId, currentVariant));
-        if (!line) return prev;
-        const target = prev.find((i) => sameLine(i, productId, variant));
-        if (target && target !== line)
-          return prev
-            .filter((i) => !sameLine(i, productId, currentVariant))
-            .map((i) =>
-              sameLine(i, productId, variant)
-                ? { ...i, quantity: i.quantity + line.quantity }
-                : i,
-            );
-        return prev.map((i) => (sameLine(i, productId, currentVariant) ? { ...i, variant } : i));
+        const size = extra?.size;
+        const flavors = extra?.flavors;
+        const idx = prev.findIndex(
+          (i) => i.productId === productId && (i.size ?? "") === (size ?? ""),
+        );
+        if (idx >= 0) {
+          return prev.map((i, n) =>
+            n === idx
+              ? {
+                  ...i,
+                  quantity: i.quantity + quantity,
+                  ...(flavors ? { flavors: [...(i.flavors ?? []), ...flavors] } : {}),
+                }
+              : i,
+          );
+        }
+        return [...prev, { productId, quantity, size, flavors }];
       });
     },
     [],
   );
+
+  const updateCartLine = useCallback((index: number, item: CartItem | null) => {
+    setCart((prev) =>
+      item === null || item.quantity <= 0
+        ? prev.filter((_, n) => n !== index)
+        : prev.map((i, n) => (n === index ? item : i)),
+    );
+  }, []);
 
   const clearCart = useCallback(() => setCart([]), []);
 
@@ -174,8 +174,20 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [products, promotions],
   );
 
+  const unitPriceOf = useCallback(
+    (item: CartItem) => {
+      const p = products.find((x) => x.id === item.productId);
+      if (item.size && p?.options?.kind === "size") {
+        const opt = p.options.sizes.find((o) => o.label === item.size);
+        if (opt) return opt.price;
+      }
+      return priceOf(item.productId);
+    },
+    [products, priceOf],
+  );
+
   const cartCount = cart.reduce((s, i) => s + i.quantity, 0);
-  const cartSubtotal = cart.reduce((s, i) => s + priceOf(i.productId) * i.quantity, 0);
+  const cartSubtotal = cart.reduce((s, i) => s + unitPriceOf(i) * i.quantity, 0);
 
   const pushNotification = useCallback((n: Omit<AppNotification, "id" | "createdAt" | "read">) => {
     setNotifications((prev) => [
@@ -190,8 +202,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const p = products.find((x) => x.id === i.productId)!;
         return {
           productId: p.id,
-          name: i.variant ? `${p.name} — ${i.variant}` : p.name,
-          unitPrice: priceOf(p.id),
+          name: describeVariation(p.name, i),
+          unitPrice: unitPriceOf(i),
           quantity: i.quantity,
         };
       });
@@ -226,7 +238,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
       });
       return order;
     },
-    [cart, products, priceOf, orders, user, pushNotification],
+    [cart, products, unitPriceOf, orders, user, pushNotification],
   );
 
   const updateOrderStatus = useCallback((orderId: string, status: OrderStatus) => {
@@ -286,8 +298,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     login,
     logout,
     addToCart,
-    setQuantity,
-    setVariant,
+    updateCartLine,
+    unitPriceOf,
     clearCart,
     cartCount,
     cartSubtotal,
@@ -334,3 +346,16 @@ export const nextLevel: Record<LoyaltyLevel, { level: LoyaltyLevel; points: numb
   VIP: { level: "BLACK", points: 1200 },
   BLACK: null,
 };
+
+/** Agrupa sabores repetidos: ["Uva", "Uva", "Menta"] -> "2x Uva, 1x Menta" */
+export function groupFlavors(flavors: string[]) {
+  const counts = new Map<string, number>();
+  flavors.forEach((f) => counts.set(f, (counts.get(f) ?? 0) + 1));
+  return [...counts].map(([f, n]) => `${n}x ${f}`).join(", ");
+}
+
+export function describeVariation(name: string, item: CartItem) {
+  if (item.size) return `${name} - ${item.size}`;
+  if (item.flavors?.length) return `${name} (${groupFlavors(item.flavors)})`;
+  return name;
+}
