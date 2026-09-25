@@ -1,5 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
-import type { ReactNode } from "react";
+import type { Context, ReactNode } from "react";
 
 import * as mock from "./mock-data";
 import type {
@@ -71,7 +71,9 @@ interface AppState {
   pushNotification: (n: Omit<AppNotification, "id" | "createdAt" | "read">) => void;
 }
 
-const AppContext = createContext<AppState | null>(null);
+// Mantém o mesmo contexto entre recargas rápidas em desenvolvimento
+const g = globalThis as unknown as { __adegaCtx?: Context<AppState | null> };
+const AppContext = g.__adegaCtx ?? (g.__adegaCtx = createContext<AppState | null>(null));
 
 const STORAGE_KEY = "adega-state-v1";
 
