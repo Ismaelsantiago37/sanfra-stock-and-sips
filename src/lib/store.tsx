@@ -5,6 +5,8 @@ import * as mock from "./mock-data";
 import type {
   AppNotification,
   CartItem,
+  ComboSelection,
+  ProductOptions,
   Customer,
   LoyaltyLevel,
   Order,
@@ -41,7 +43,11 @@ interface AppState {
   addToCart: (
     productId: string,
     quantity?: number,
-    extra?: { size?: string | undefined; flavors?: string[] | undefined },
+    extra?: {
+      size?: string | undefined;
+      flavors?: string[] | undefined;
+      combo?: ComboSelection | undefined;
+    },
   ) => void;
   /** substitui (ou remove, com null) uma linha do carrinho */
   updateCartLine: (index: number, item: CartItem | null) => void;
@@ -132,9 +138,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
     (
       productId: string,
       quantity = 1,
-      extra?: { size?: string | undefined; flavors?: string[] | undefined },
+      extra?: {
+        size?: string | undefined;
+        flavors?: string[] | undefined;
+        combo?: ComboSelection | undefined;
+      },
     ) => {
       setCart((prev) => {
+        if (extra?.combo) return [...prev, { productId, quantity, combo: extra.combo }];
         const size = extra?.size;
         const flavors = extra?.flavors;
         const idx = prev.findIndex(
@@ -179,6 +190,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const unitPriceOf = useCallback(
     (item: CartItem) => {
       const p = products.find((x) => x.id === item.productId);
+      if (item.combo && p?.options?.kind === "combo") return comboPrice(p.options, item.combo);
       if (item.size && p?.options?.kind === "size") {
         const opt = p.options.sizes.find((o) => o.label === item.size);
         if (opt) return opt.price;
@@ -356,7 +368,31 @@ export function groupFlavors(flavors: string[]) {
   return [...counts].map(([f, n]) => `${n}x ${f}`).join(", ");
 }
 
+export function comboPrice(opts: ProductOptions, sel: ComboSelection) {
+  if (opts.kind !== "combo") return 0;
+  const w = opts.whiskies.find((x) => x.label === sel.whisky)?.price ?? 0;
+  const off = Math.round(w * (1 - opts.whiskyDiscountPercent / 100) * 100) / 100;
+  return off + opts.energeticoQty * opts.energeticoPrice + opts.geloQty * opts.geloPrice;
+}
+
+export function groupCounts(c: Record<string, number>) {
+  return Object.entries(c)
+    .filter(([, n]) => n > 0)
+    .sort((a, b) => b[1] - a[1])
+    .map(([f, n]) => `${n}x ${f}`)
+    .join(", ");
+}
+
+export function comboLines(sel: ComboSelection) {
+  return [
+    `1x ${sel.whisky} (5% OFF aplicado)`,
+    `Energéticos: ${groupCounts(sel.energeticos)}`,
+    `Gelos: ${groupCounts(sel.gelos)}`,
+  ];
+}
+
 export function describeVariation(name: string, item: CartItem) {
+  if (item.combo) return `${name} — ${comboLines(item.combo).join("; ")}`;
   if (item.size) return `${name} - ${item.size}`;
   if (item.flavors?.length) return `${name} (${groupFlavors(item.flavors)})`;
   return name;

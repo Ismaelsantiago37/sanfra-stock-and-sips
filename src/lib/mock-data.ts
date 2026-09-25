@@ -47,6 +47,7 @@ import essChiclete from "@/assets/ess-chiclete.jpg";
 import essBlueberry from "@/assets/ess-blueberry.jpg";
 import essLimao from "@/assets/ess-limao.jpg";
 import essCombo from "@/assets/ess-combo.jpg";
+import fotoComboPerfeito from "@/assets/combo-whisky-redbull-gelo.jpg.asset.json";
 import linhaZiggy from "@/assets/essencia-ziggy.jpg.asset.json";
 import linhaZomo from "@/assets/essencia-zomo.jpg.asset.json";
 import linhaAlFakher from "@/assets/essencia-alfakher.jpg.asset.json";
@@ -122,6 +123,34 @@ const img = {
 };
 
 export const products: Product[] = [
+  {
+    id: "cb1",
+    name: "Combo Perfeito: Whisky + Red Bull + Gelo",
+    description: "Monte seu combo: Escolha seu Whisky (com 5% OFF), 3 Energéticos e 3 Gelos",
+    price: 199.9,
+    categoryId: "combos",
+    image: fotoComboPerfeito.url,
+    stock: 25,
+    timesOrdered: 999,
+    active: true,
+    options: {
+      kind: "combo",
+      whiskies: [
+        { label: "Jack Daniel's Honey", price: 169.9 },
+        { label: "Jack Daniel's Apple", price: 169.9 },
+        { label: "Jack Daniel's Original", price: 159.9 },
+        { label: "Johnnie Walker Red Label", price: 119.9 },
+        { label: "Johnnie Walker Black Label", price: 219.9 },
+      ],
+      whiskyDiscountPercent: 5,
+      energeticos: ["Tradicional", "Sugarfree", "Tropical", "Melancia", "Pitaya"],
+      energeticoPrice: 11.9,
+      energeticoQty: 3,
+      gelos: ["Melancia", "Coco", "Maracujá"],
+      geloPrice: 4.9,
+      geloQty: 3,
+    },
+  },
   {
     id: "p1",
     name: "Cerveja Pilsen Lata 350ml",

@@ -183,8 +183,28 @@ export interface CartItem {
   size?: string | undefined;
   /** um sabor por unidade (produtos com opção de sabor) */
   flavors?: string[] | undefined;
+  /** montagem do combo (produtos com opção de combo) */
+  combo?: ComboSelection | undefined;
 }
 
 export type ProductOptions =
   | { kind: "flavor"; flavors: string[] }
-  | { kind: "size"; sizes: { label: string; price: number }[] };
+  | { kind: "size"; sizes: { label: string; price: number }[] }
+  | {
+      kind: "combo";
+      whiskies: { label: string; price: number }[];
+      /** desconto aplicado ao whisky dentro do combo, em % */
+      whiskyDiscountPercent: number;
+      energeticos: string[];
+      energeticoPrice: number;
+      energeticoQty: number;
+      gelos: string[];
+      geloPrice: number;
+      geloQty: number;
+    };
+
+export interface ComboSelection {
+  whisky: string;
+  energeticos: Record<string, number>;
+  gelos: Record<string, number>;
+}
