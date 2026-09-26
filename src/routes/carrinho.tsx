@@ -3,10 +3,11 @@ import { Pencil, ShoppingCart, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 import { FlavorGrid, QtyStepper, SizeGrid } from "@/components/site/VariationPickers";
+import { ComboDialog } from "@/components/site/ComboDialog";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { brl } from "@/lib/format";
-import { groupFlavors, useApp } from "@/lib/store";
+import { comboLines, groupFlavors, useApp } from "@/lib/store";
 import type { CartItem, Product } from "@/lib/types";
 
 export const Route = createFileRoute("/carrinho")({
@@ -98,6 +99,58 @@ function CartLine({ item, index, product }: { item: CartItem; index: number; pro
     : item.flavors?.length
       ? `${item.quantity}x ${product.name} (${groupFlavors(item.flavors)})`
       : `${item.quantity}x ${product.name}`;
+
+  if (item.combo && opts?.kind === "combo") {
+    return (
+      <li className="rounded-xl border border-primary/35 bg-card p-3">
+        <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-3">
+          <img
+            src={product.image}
+            alt={product.name}
+            loading="lazy"
+            width={80}
+            height={80}
+            className="h-16 w-16 shrink-0 rounded-lg object-cover"
+          />
+          <div className="min-w-0">
+            <p className="text-sm font-semibold">1x Combo: Whisky + Red Bull + Gelo</p>
+            <ul className="mt-1 space-y-0.5 pl-2 text-xs text-muted-foreground">
+              {comboLines(item.combo).map((line) => (
+                <li key={line}>– {line}</li>
+              ))}
+            </ul>
+            <p className="mt-2 font-display text-lg text-primary">{brl(unit)}</p>
+          </div>
+          <div className="flex shrink-0 gap-1">
+            <Button
+              size="icon"
+              variant={editing ? "default" : "ghost"}
+              onClick={() => setEditing(true)}
+              aria-label="Editar combo"
+            >
+              <Pencil className="h-4 w-4" />
+            </Button>
+            <Button
+              size="icon"
+              variant="ghost"
+              onClick={() => updateCartLine(index, null)}
+              aria-label="Remover combo"
+            >
+              <Trash2 className="h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+        <ComboDialog
+          product={product}
+          open={editing}
+          onOpenChange={setEditing}
+          initial={item.combo}
+          confirmLabel="Salvar alterações"
+          onConfirm={(combo) => updateCartLine(index, { ...item, combo })}
+        />
+      </li>
+    );
+  }
 
   return (
     <li className="rounded-xl border border-border bg-card p-3">
