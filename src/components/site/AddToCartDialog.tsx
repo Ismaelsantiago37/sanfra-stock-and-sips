@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
+import { ComboDialog } from "./ComboDialog";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -70,6 +71,20 @@ export function AddToCartDialog({
     });
     onOpenChange(false);
   };
+
+  if (opts?.kind === "combo") {
+    return (
+      <ComboDialog
+        product={product}
+        open={open}
+        onOpenChange={onOpenChange}
+        onConfirm={(combo) => {
+          addToCart(product.id, 1, { combo });
+          toast.success("Combo adicionado ao carrinho", { description: product.name });
+        }}
+      />
+    );
+  }
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
