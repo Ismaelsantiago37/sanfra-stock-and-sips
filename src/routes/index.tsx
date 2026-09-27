@@ -8,8 +8,9 @@ import { categories } from "@/lib/mock-data";
 import { levelPerks, useApp } from "@/lib/store";
 
 import { Map3D } from "@/components/site/Map3D";
-import narguileFoto from "@/assets/narguile-vitrine.png.asset.json";
-import essenciasFoto from "@/assets/essencias-vitrine.png.asset.json";
+import heroNarguile from "@/assets/hero-narguile.jpg.asset.json";
+import heroHeineken from "@/assets/hero-heineken.jpg.asset.json";
+import heroCoca from "@/assets/hero-coca.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
