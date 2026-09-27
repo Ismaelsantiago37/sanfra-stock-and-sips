@@ -73,10 +73,10 @@ function Home() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { src: maisPedidos[0]!.image, alt: maisPedidos[0]!.name, pos: "object-center" },
-              { src: heroNarguile.url, alt: "Narguilé completo preto montado", pos: "object-contain" },
-              { src: heroHeineken.url, alt: "Cervejas Heineken geladas", pos: "object-center" },
-              { src: heroCoca.url, alt: "Refrigerantes gelados: Coca-Cola, Guaraná e Fanta", pos: "object-center" },
+              { src: maisPedidos[0]!.image, alt: maisPedidos[0]!.name, fit: "object-cover object-center" },
+              { src: heroNarguile.url, alt: "Narguilé completo preto montado", fit: "object-contain object-center" },
+              { src: heroHeineken.url, alt: "Cervejas Heineken geladas", fit: "object-cover object-center" },
+              { src: heroCoca.url, alt: "Refrigerantes gelados: Coca-Cola, Guaraná e Fanta", fit: "object-cover object-center" },
             ].map((img) => (
               <img
                 key={img.src}
@@ -84,7 +84,7 @@ function Home() {
                 alt={img.alt}
                 width={400}
                 height={300}
-                className={`h-36 w-full rounded-xl border border-border object-cover sm:h-48 ${img.pos}`}
+                className={`h-36 w-full rounded-xl border border-border sm:h-48 ${img.fit}`}
               />
             ))}
           </div>
