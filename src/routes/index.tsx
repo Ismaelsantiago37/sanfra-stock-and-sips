@@ -10,6 +10,9 @@ import { levelPerks, useApp } from "@/lib/store";
 import { Map3D } from "@/components/site/Map3D";
 import narguileFoto from "@/assets/narguile-vitrine.png.asset.json";
 import essenciasFoto from "@/assets/essencias-vitrine.png.asset.json";
+import heroNarguile from "@/assets/hero-narguile.jpg.asset.json";
+import heroHeineken from "@/assets/hero-heineken.jpg.asset.json";
+import heroCoca from "@/assets/hero-coca.jpg.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -69,14 +72,19 @@ function Home() {
             </ul>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {maisPedidos.slice(0, 4).map((p) => (
+            {[
+              { src: maisPedidos[0]!.image, alt: maisPedidos[0]!.name, fit: "object-cover object-center" },
+              { src: heroNarguile.url, alt: "Narguilé completo preto montado", fit: "object-contain object-center" },
+              { src: heroHeineken.url, alt: "Cervejas Heineken geladas", fit: "object-cover object-center" },
+              { src: heroCoca.url, alt: "Refrigerantes gelados: Coca-Cola, Guaraná e Fanta", fit: "object-cover object-center" },
+            ].map((img) => (
               <img
-                key={p.id}
-                src={p.image}
-                alt={p.name}
+                key={img.src}
+                src={img.src}
+                alt={img.alt}
                 width={400}
                 height={300}
-                className="h-36 w-full rounded-xl border border-border object-cover sm:h-48"
+                className={`h-36 w-full rounded-xl border border-border sm:h-48 ${img.fit}`}
               />
             ))}
           </div>
