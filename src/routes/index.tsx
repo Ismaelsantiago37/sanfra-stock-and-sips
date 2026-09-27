@@ -72,11 +72,16 @@ function Home() {
             </ul>
           </div>
           <div className="grid grid-cols-2 gap-3">
-            {maisPedidos.slice(0, 4).map((p) => (
+            {[
+              { src: maisPedidos[0].image, alt: maisPedidos[0].name },
+              { src: heroNarguile.url, alt: "Narguilé completo preto montado" },
+              { src: heroHeineken.url, alt: "Cervejas Heineken geladas" },
+              { src: heroCoca.url, alt: "Refrigerantes gelados: Coca-Cola, Guaraná e Fanta" },
+            ].map((img) => (
               <img
-                key={p.id}
-                src={p.image}
-                alt={p.name}
+                key={img.src}
+                src={img.src}
+                alt={img.alt}
                 width={400}
                 height={300}
                 className="h-36 w-full rounded-xl border border-border object-cover sm:h-48"
