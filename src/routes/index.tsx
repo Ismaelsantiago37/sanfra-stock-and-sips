@@ -74,7 +74,7 @@ function Home() {
           <div className="grid grid-cols-2 gap-3">
             {[
               { src: maisPedidos[0]!.image, alt: maisPedidos[0]!.name, pos: "object-center" },
-              { src: heroNarguile.url, alt: "Narguilé completo preto montado", pos: "object-top" },
+              { src: heroNarguile.url, alt: "Narguilé completo preto montado", pos: "object-contain" },
               { src: heroHeineken.url, alt: "Cervejas Heineken geladas", pos: "object-center" },
               { src: heroCoca.url, alt: "Refrigerantes gelados: Coca-Cola, Guaraná e Fanta", pos: "object-center" },
             ].map((img) => (
