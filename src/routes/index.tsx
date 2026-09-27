@@ -73,7 +73,7 @@ function Home() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { src: maisPedidos[0].image, alt: maisPedidos[0].name },
+              { src: maisPedidos[0]!.image, alt: maisPedidos[0]!.name },
               { src: heroNarguile.url, alt: "Narguilé completo preto montado" },
               { src: heroHeineken.url, alt: "Cervejas Heineken geladas" },
               { src: heroCoca.url, alt: "Refrigerantes gelados: Coca-Cola, Guaraná e Fanta" },
