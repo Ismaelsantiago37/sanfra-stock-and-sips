@@ -29,6 +29,7 @@ export function AddToCartDialog({
   const { addToCart } = useApp();
   const priceOf = usePriceOf();
   const opts = product.options;
+  const optionLabel = opts?.kind === "size" ? (opts.optionLabel ?? "tamanho") : "tamanho";
 
   const [qty, setQty] = useState(1);
   const [mode, setMode] = useState<"same" | "diff">("same");
@@ -107,7 +108,7 @@ export function AddToCartDialog({
 
         {opts?.kind === "size" && (
           <section className="space-y-2">
-            <p className="text-sm font-semibold">1. Escolha o tamanho</p>
+            <p className="text-sm font-semibold">1. Escolha {optionLabel === "marca" ? "a marca" : optionLabel === "sabor" ? "o sabor" : "o tamanho"}</p>
             <SizeGrid sizes={opts.sizes} value={size} onChange={setSize} />
           </section>
         )}
@@ -180,7 +181,7 @@ export function AddToCartDialog({
             <p className="font-display text-2xl text-primary">{brl(unit * qty)}</p>
           </div>
           <Button size="lg" disabled={!ready} onClick={confirm}>
-            {ready ? "Adicionar ao carrinho" : opts?.kind === "size" ? "Escolha o tamanho" : "Escolha o sabor"}
+            {ready ? "Adicionar ao carrinho" : opts?.kind === "size" ? `Escolha ${optionLabel === "marca" ? "a marca" : optionLabel === "sabor" ? "o sabor" : "o tamanho"}` : "Escolha o sabor"}
           </Button>
         </div>
       </DialogContent>

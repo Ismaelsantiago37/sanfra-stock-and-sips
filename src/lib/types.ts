@@ -189,7 +189,7 @@ export interface CartItem {
 
 export type ProductOptions =
   | { kind: "flavor"; flavors: string[] }
-  | { kind: "size"; sizes: { label: string; price: number }[] }
+  | { kind: "size"; sizes: { label: string; price: number }[]; optionLabel?: string }
   | {
       kind: "combo";
       whiskies: { label: string; price: number }[];

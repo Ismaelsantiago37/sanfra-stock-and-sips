@@ -60,6 +60,9 @@ import fotoLongNeck from "@/assets/longneck.jpg.asset.json";
 import fotoLitrao from "@/assets/litrao.jpg.asset.json";
 import fotoBlackLabel from "@/assets/black-label.jpg.asset.json";
 import fotoLicorChocolate from "@/assets/licor-chocolate.jpg.asset.json";
+import fotoLongNeckMarcas from "@/assets/cerveja-long-neck-marcas.jpg.asset.json";
+import fotoSkolBeats from "@/assets/skol-beats-sabores.jpg.asset.json";
+import fotoCervejaLataMarcas from "@/assets/cerveja-lata-marcas.png.asset.json";
 
 export const categories: Category[] = [
   { id: "whisky", name: "Whisky", emoji: "🥃" },
@@ -120,6 +123,9 @@ const img = {
   litrao: fotoLitrao.url,
   blackLabel: fotoBlackLabel.url,
   licorChocolate: fotoLicorChocolate.url,
+  longNeckMarcas: fotoLongNeckMarcas.url,
+  skolBeats: fotoSkolBeats.url,
+  cervejaLataMarcas: fotoCervejaLataMarcas.url,
 };
 
 export const products: Product[] = [
@@ -153,27 +159,75 @@ export const products: Product[] = [
   },
   {
     id: "p1",
-    name: "Cerveja Pilsen Lata 350ml",
+    name: "Cerveja Lata 350ml",
     description:
-      "Pilsen puro malte tirada direto do freezer, lata 350ml suando de gelada. Leve na unidade ou no pack de 12.",
+      "Escolha sua marca favorita em lata 350ml, sempre trincando de gelada.",
     price: 4.9,
     categoryId: "cervejas",
-    image: img.pilsenLata,
+    image: img.cervejaLataMarcas,
     stock: 240,
     timesOrdered: 812,
     active: true,
+    options: {
+      kind: "size",
+      optionLabel: "marca",
+      sizes: [
+        { label: "Itaipava", price: 4.5 },
+        { label: "Heineken", price: 6.9 },
+        { label: "Original", price: 5.9 },
+        { label: "Brahma", price: 4.9 },
+        { label: "Skol", price: 4.9 },
+        { label: "Amstel Puro Malte", price: 5.5 },
+      ],
+    },
   },
   {
     id: "p2",
     name: "Cerveja Long Neck 355ml",
     description:
-      "Long neck 355ml de lager puro malte, dourada e encorpada, servida trincando de gelada no balcão.",
+      "Escolha sua marca favorita de long neck 355ml, servida trincando de gelada.",
     price: 7.5,
     categoryId: "cervejas",
-    image: img.longNeck,
+    image: img.longNeckMarcas,
     stock: 180,
     timesOrdered: 604,
     active: true,
+    options: {
+      kind: "size",
+      optionLabel: "marca",
+      sizes: [
+        { label: "Itaipava", price: 6.5 },
+        { label: "Budweiser", price: 7.5 },
+        { label: "Heineken", price: 8.9 },
+        { label: "Original", price: 7.9 },
+        { label: "Brahma", price: 6.9 },
+        { label: "Skol", price: 6.9 },
+        { label: "Brahma Puro Malte", price: 7.5 },
+      ],
+    },
+  },
+  {
+    id: "p-beats",
+    name: "Skol Beats",
+    description: "Escolha entre os sabores Beats gelados: do clássico cítrico às versões tropicais e intensas.",
+    price: 8.9,
+    categoryId: "cervejas",
+    image: img.skolBeats,
+    stock: 84,
+    timesOrdered: 286,
+    active: true,
+    options: {
+      kind: "size",
+      optionLabel: "sabor",
+      sizes: [
+        { label: "Clássica — cítrica e levemente adocicada", price: 8.9 },
+        { label: "Tropical (Amarela) — notas tropicais", price: 9.5 },
+        { label: "Spirit (Verde) — frutada e refrescante", price: 9.5 },
+        { label: "GT — gin, tônica e limão", price: 9.9 },
+        { label: "Red / Secret — frutas vermelhas", price: 9.9 },
+        { label: "150 BPM — maior teor alcoólico", price: 11.9 },
+      ],
+    },
   },
   {
     id: "p3",
