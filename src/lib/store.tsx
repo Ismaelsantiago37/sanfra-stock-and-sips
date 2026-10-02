@@ -62,6 +62,10 @@ interface AppState {
     paymentMethod: PaymentMethod;
     note?: string;
     discount?: number;
+    deliveryFee?: number;
+    etaMinutes?: number;
+    recipientName?: string;
+    recipientPhone?: string;
   }) => Order;
   updateOrderStatus: (orderId: string, status: OrderStatus) => void;
   // promotions
@@ -211,7 +215,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const placeOrder: AppState["placeOrder"] = useCallback(
-    ({ type, address, paymentMethod, note, discount = 0 }) => {
+    ({ type, address, paymentMethod, note, discount = 0, deliveryFee: fee, etaMinutes, recipientName, recipientPhone }) => {
       const items = cart.map((i) => {
         const p = products.find((x) => x.id === i.productId)!;
         return {
@@ -222,13 +226,14 @@ export function AppProvider({ children }: { children: ReactNode }) {
         };
       });
       const subtotal = items.reduce((s, i) => s + i.unitPrice * i.quantity, 0);
-      const deliveryFee = type === "ENTREGA" ? 6 : 0;
+      const deliveryFee = type === "ENTREGA" ? (fee ?? 6) : 0;
       const nextNumber = Math.max(...orders.map((o) => o.number)) + 1;
       const order: Order = {
         id: `o${nextNumber}`,
         number: nextNumber,
         customerId: user?.customerId ?? "c1",
-        customerName: user?.name ?? "Cliente",
+        customerName: recipientName || user?.name || "Cliente",
+        ...(recipientPhone ? { recipientPhone } : {}),
         items,
         subtotal,
         deliveryFee,
@@ -239,7 +244,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         ...(type === "ENTREGA" && address ? { address } : {}),
         paymentMethod,
         createdAt: new Date().toISOString(),
-        etaMinutes: type === "ENTREGA" ? 40 : 20,
+        etaMinutes: etaMinutes ?? (type === "ENTREGA" ? 40 : 20),
         ...(note ? { note } : {}),
       };
       setOrders((prev) => [order, ...prev]);

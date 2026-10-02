@@ -141,6 +141,7 @@ export interface Order {
   createdAt: string;
   etaMinutes: number;
   note?: string | undefined;
+  recipientPhone?: string | undefined;
 }
 
 export type PendingStatus = "PENDENTE" | "PAGO" | "ATRASADO";
