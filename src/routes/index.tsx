@@ -73,19 +73,39 @@ function Home() {
           </div>
           <div className="grid grid-cols-2 gap-3">
             {[
-              { src: maisPedidos[0]!.image, alt: maisPedidos[0]!.name },
-              { src: heroNarguile.url, alt: "Narguilé completo preto montado" },
-              { src: heroHeineken.url, alt: "Cervejas Heineken geladas" },
-              { src: heroCoca.url, alt: "Refrigerantes gelados: Coca-Cola, Guaraná e Fanta" },
+              {
+                src: maisPedidos[0]!.image,
+                alt: maisPedidos[0]!.name,
+                position: "object-center",
+              },
+              {
+                src: heroNarguile.url,
+                alt: "Narguilé completo preto montado",
+                position: "object-[center_42%]",
+              },
+              {
+                src: heroHeineken.url,
+                alt: "Cervejas Heineken geladas",
+                position: "object-center",
+              },
+              {
+                src: heroCoca.url,
+                alt: "Refrigerantes gelados: Coca-Cola, Guaraná e Fanta",
+                position: "object-center",
+              },
             ].map((img) => (
-              <img
+              <div
                 key={img.src}
-                src={img.src}
-                alt={img.alt}
-                width={400}
-                height={300}
-                className="h-36 w-full rounded-xl border border-border bg-card object-contain object-center sm:h-48"
-              />
+                className="aspect-[4/3] overflow-hidden rounded-xl border border-border bg-card"
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  width={400}
+                  height={300}
+                  className={`h-full w-full object-cover ${img.position}`}
+                />
+              </div>
             ))}
           </div>
         </div>
