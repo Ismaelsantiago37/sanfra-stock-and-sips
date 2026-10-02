@@ -176,7 +176,7 @@ function CartLine({ item, index, product }: { item: CartItem; index: number; pro
               size="icon"
               variant={editing ? "default" : "ghost"}
               onClick={() => setEditing((e) => !e)}
-              aria-label={opts.kind === "size" ? "Alterar tamanho" : "Alterar sabores"}
+              aria-label={opts.kind === "size" ? `Alterar ${opts.optionLabel ?? "tamanho"}` : "Alterar sabores"}
             >
               <Pencil className="h-4 w-4" />
             </Button>
@@ -194,7 +194,9 @@ function CartLine({ item, index, product }: { item: CartItem; index: number; pro
 
       {editing && opts?.kind === "size" && (
         <div className="mt-3 space-y-2 border-t border-border pt-3 animate-in fade-in-0 slide-in-from-top-1">
-          <p className="text-xs font-semibold text-muted-foreground">Alterar tamanho</p>
+          <p className="text-xs font-semibold text-muted-foreground">
+            Alterar {opts.optionLabel ?? "tamanho"}
+          </p>
           <SizeGrid
             sizes={opts.sizes}
             value={item.size}
