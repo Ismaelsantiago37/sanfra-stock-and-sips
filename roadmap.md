@@ -8,3 +8,5 @@
 - [x] Cerveja Long Neck: foto anexa e seleção de marca com preço
 - [x] Skol Beats: novo produto, foto e seleção de sabores
 - [x] Cerveja Lata 350ml: novo nome, foto e seleção de marca com preço
+
+- [ ] Checkout em etapas (destinatario, endereco+estimativa, cupom, clube, pagamento)
