@@ -20,7 +20,6 @@ import imgOutros from "@/assets/cat-outros.jpg";
 import imgNarguile from "@/assets/cat-narguile.jpg";
 import imgEssencias from "@/assets/cat-essencias.jpg";
 import imgCarvao from "@/assets/narguile-carvao.jpg";
-import imgRosh from "@/assets/narguile-rosh.jpg";
 import narguileFoto from "@/assets/narguile-vitrine.png.asset.json";
 import essenciasFoto from "@/assets/essencias-vitrine.png.asset.json";
 import fotoJack1L from "@/assets/whisky-jack-1l.jpg.asset.json";
@@ -33,20 +32,10 @@ import fotoBeefeater from "@/assets/gin-beefeater.jpg.asset.json";
 import fotoCorona from "@/assets/cerveja-corona.jpg.asset.json";
 import fotoCervejasImportadas from "@/assets/cervejas-importadas.jpg.asset.json";
 import fotoSmirnoff from "@/assets/vodka-smirnoff.jpg.asset.json";
-import fotoEnergetico from "@/assets/energetico.jpg.asset.json";
 import fotoRefrigerante from "@/assets/refrigerante.jpg.asset.json";
 import fotoAgua from "@/assets/agua.jpg.asset.json";
 import fotoGelo from "@/assets/gelo.jpg.asset.json";
 import fotoPetiscos from "@/assets/petiscos.jpg.asset.json";
-import fotoTonica from "@/assets/tonica.jpg.asset.json";
-import essMelancia from "@/assets/ess-melancia.jpg";
-import essUva from "@/assets/ess-uva.jpg";
-import essMaracuja from "@/assets/ess-maracuja.jpg";
-import essMentaIce from "@/assets/ess-menta-ice.jpg";
-import essChiclete from "@/assets/ess-chiclete.jpg";
-import essBlueberry from "@/assets/ess-blueberry.jpg";
-import essLimao from "@/assets/ess-limao.jpg";
-import essCombo from "@/assets/ess-combo.jpg";
 import fotoComboPerfeito from "@/assets/combo-whisky-redbull-gelo.jpg.asset.json";
 import linhaZiggy from "@/assets/essencia-ziggy.jpg.asset.json";
 import linhaZomo from "@/assets/essencia-zomo.jpg.asset.json";
@@ -54,15 +43,13 @@ import linhaAlFakher from "@/assets/essencia-alfakher.jpg.asset.json";
 import fotoEnergeticosDisplay from "@/assets/energeticos-display.jpg";
 import fotoRefrigerantesDisplay from "@/assets/refrigerantes-display.jpg";
 import fotoAguaDisplay from "@/assets/agua-display.jpg";
-import fotoAguaGasDisplay from "@/assets/agua-gas-display.jpg";
-import fotoPilsenLata from "@/assets/pilsen-lata.jpg.asset.json";
-import fotoLongNeck from "@/assets/longneck.jpg.asset.json";
 import fotoLitrao from "@/assets/litrao.jpg.asset.json";
 import fotoBlackLabel from "@/assets/black-label.jpg.asset.json";
 import fotoLicorChocolate from "@/assets/licor-chocolate.jpg.asset.json";
 import fotoLongNeckMarcas from "@/assets/cerveja-long-neck-marcas.jpg.asset.json";
 import fotoSkolBeats from "@/assets/skol-beats-sabores.jpg.asset.json";
 import fotoCervejaLataMarcas from "@/assets/cerveja-lata-marcas.png.asset.json";
+import fotoLicor43 from "@/assets/licor-43.jpg.asset.json";
 
 export const categories: Category[] = [
   { id: "whisky", name: "Whisky", emoji: "🥃" },
@@ -90,7 +77,6 @@ const img = {
   narguile: imgNarguile,
   essencias: imgEssencias,
   carvao: imgCarvao,
-  rosh: imgRosh,
   /** foto real da vitrine da adega */
   narguileFoto: narguileFoto.url,
   essenciasFoto: essenciasFoto.url,
@@ -104,28 +90,23 @@ const img = {
   corona: fotoCorona.url,
   cervejasImportadas: fotoCervejasImportadas.url,
   smirnoff: fotoSmirnoff.url,
-  energetico: fotoEnergetico.url,
   refrigerante: fotoRefrigerante.url,
   agua: fotoAgua.url,
   gelo: fotoGelo.url,
   petiscos: fotoPetiscos.url,
-  tonica: fotoTonica.url,
   energeticosDisplay: fotoEnergeticosDisplay,
   refrigerantesDisplay: fotoRefrigerantesDisplay,
   aguaDisplay: fotoAguaDisplay,
-  aguaGasDisplay: fotoAguaGasDisplay,
-  essMelancia, essUva, essMaracuja, essMentaIce, essChiclete, essBlueberry, essLimao, essCombo,
   linhaZiggy: linhaZiggy.url,
   linhaZomo: linhaZomo.url,
   linhaAlFakher: linhaAlFakher.url,
-  pilsenLata: fotoPilsenLata.url,
-  longNeck: fotoLongNeck.url,
   litrao: fotoLitrao.url,
   blackLabel: fotoBlackLabel.url,
   licorChocolate: fotoLicorChocolate.url,
   longNeckMarcas: fotoLongNeckMarcas.url,
   skolBeats: fotoSkolBeats.url,
   cervejaLataMarcas: fotoCervejaLataMarcas.url,
+  licor43: fotoLicor43.url,
 };
 
 export const products: Product[] = [
@@ -335,25 +316,14 @@ export const products: Product[] = [
     active: true,
   },
   {
-    id: "p20",
-    name: "Licor de Ervas Importado 700ml",
-    description: "Servido gelado, aquele shot do fim da noite.",
-    price: 119.9,
+    id: "p-licor-43",
+    name: "Licor 43 Original 750ml",
+    description: "Licor espanhol dourado, aromático e levemente adocicado. Sirva puro, com gelo ou em drinks.",
+    price: 149.9,
     categoryId: "licores",
-    image: img.licores,
-    stock: 16,
-    timesOrdered: 102,
-    active: true,
-  },
-  {
-    id: "p21",
-    name: "Cerveja Artesanal IPA 500ml",
-    description: "Lupulada, amarga na medida, produção local.",
-    price: 19.9,
-    categoryId: "cervejas",
-    image: img.cervejas,
-    stock: 48,
-    timesOrdered: 137,
+    image: img.licor43,
+    stock: 18,
+    timesOrdered: 64,
     active: true,
   },
   {
@@ -412,23 +382,12 @@ export const products: Product[] = [
     active: true,
   },
   {
-    id: "p27",
-    name: "Água Tônica 350ml (4 unidades)",
-    description: "Borbulhante e amarga na medida. Companheira oficial do gin.",
-    price: 21.9,
-    categoryId: "refrigerantes",
-    image: img.tonica,
-    stock: 64,
-    timesOrdered: 163,
-    active: true,
-  },
-  {
     id: "p9",
-    name: "Energético 473ml",
-    description: "Pra esticar a noite sem cair.",
+    name: "Energético Normal 473ml",
+    description: "Versão tradicional com açúcar para manter a energia da noite.",
     price: 11.9,
     categoryId: "energeticos",
-    image: img.energetico,
+    image: img.energeticosDisplay,
     stock: 120,
     timesOrdered: 389,
     active: true,
@@ -474,19 +433,6 @@ export const products: Product[] = [
     options: { kind: "size", sizes: [{ label: "São Lourenço 500ml", price: 2.9 }, { label: "Minalba 1L", price: 3.9 }, { label: "São Lourenço 1,5L", price: 4.5 }] },
   },
   {
-    id: "p29",
-    name: "Água Mineral com Gás Perrier 500ml",
-    description:
-      "Perrier 500ml gelada. Disponível também em 330ml e opções de outras marcas como São Lourenço.",
-    price: 5.5,
-    categoryId: "agua",
-    image: img.aguaGasDisplay,
-    stock: 110,
-    timesOrdered: 98,
-    active: true,
-    options: { kind: "size", sizes: [{ label: "Perrier 330ml", price: 4.5 }, { label: "Perrier 500ml", price: 5.5 }, { label: "São Lourenço c/ gás 500ml", price: 3.9 }] },
-  },
-  {
     id: "p12",
     name: "Gelo em Cubos 5kg",
     description: "Saco lacrado, direto do freezer.",
@@ -506,17 +452,6 @@ export const products: Product[] = [
     image: img.gelo,
     stock: 80,
     timesOrdered: 142,
-    active: true,
-  },
-  {
-    id: "p13",
-    name: "Combo Rolê da Sexta",
-    description: "12 latas de pilsen + 1 saco de gelo 5kg.",
-    price: 69.9,
-    categoryId: "combos",
-    image: img.cervejas,
-    stock: 25,
-    timesOrdered: 214,
     active: true,
   },
   {
@@ -611,41 +546,8 @@ export const products: Product[] = [
     active: true,
   },
   {
-    id: "n4",
-    name: "Rosh de Barro Artesanal",
-    description: "Queima uniforme e mais fumaça. Feito à mão.",
-    price: 44.9,
-    categoryId: "narguile",
-    image: img.rosh,
-    stock: 24,
-    timesOrdered: 87,
-    active: true,
-  },
-  {
-    id: "n5",
-    name: "Rosh de Silicone",
-    description: "Resistente, fácil de limpar e não trinca.",
-    price: 34.9,
-    categoryId: "narguile",
-    image: img.rosh,
-    stock: 30,
-    timesOrdered: 71,
-    active: true,
-  },
-  {
-    id: "n6",
-    name: "Carvão de Coco 1kg",
-    description: "Hexagonal, acende rápido e dura mais de 1h30.",
-    price: 24.9,
-    categoryId: "narguile",
-    image: img.carvao,
-    stock: 60,
-    timesOrdered: 305,
-    active: true,
-  },
-  {
     id: "n7",
-    name: "Carvão de Coco 250g (avulso)",
+    name: "Carvão 250g (avulso)",
     description: "Pacote menor pra sessão rápida.",
     price: 9.9,
     categoryId: "narguile",
@@ -701,94 +603,6 @@ export const products: Product[] = [
     active: true,
     options: { kind: "flavor", flavors: ["Melancia com Menta", "Uva", "Maracujá", "Blueberry", "Menta", "Chiclete", "Limão", "Morango", "Duas Maçãs"] },
   },
-  {
-    id: "e1",
-    name: "Essência Melancia com Menta 50g",
-    description: "Refrescante e docinha, a mais pedida do balcão.",
-    price: 19.9,
-    categoryId: "essencias",
-    image: img.essMelancia,
-    stock: 40,
-    timesOrdered: 264,
-    active: true,
-  },
-  {
-    id: "e2",
-    name: "Essência Uva Verde 50g",
-    description: "Frutada e leve, boa pra sessão longa.",
-    price: 19.9,
-    categoryId: "essencias",
-    image: img.essUva,
-    stock: 36,
-    timesOrdered: 201,
-    active: true,
-  },
-  {
-    id: "e3",
-    name: "Essência Maracujá 50g",
-    description: "Azedinha na medida, combina com gelo na base.",
-    price: 19.9,
-    categoryId: "essencias",
-    image: img.essMaracuja,
-    stock: 28,
-    timesOrdered: 158,
-    active: true,
-  },
-  {
-    id: "e4",
-    name: "Essência Menta Ice 50g",
-    description: "Gelada de verdade, pra quem gosta de sentir o frio.",
-    price: 21.9,
-    categoryId: "essencias",
-    image: img.essMentaIce,
-    stock: 33,
-    timesOrdered: 176,
-    active: true,
-  },
-  {
-    id: "e5",
-    name: "Essência Chiclete 50g",
-    description: "Doce e nostálgica, sucesso com a galera nova.",
-    price: 21.9,
-    categoryId: "essencias",
-    image: img.essChiclete,
-    stock: 25,
-    timesOrdered: 129,
-    active: true,
-  },
-  {
-    id: "e6",
-    name: "Essência Blueberry 50g",
-    description: "Importada, sabor marcante de frutas vermelhas.",
-    price: 27.9,
-    categoryId: "essencias",
-    image: img.essBlueberry,
-    stock: 16,
-    timesOrdered: 112,
-    active: true,
-  },
-  {
-    id: "e7",
-    name: "Essência Limão Siciliano 50g",
-    description: "Cítrica e suave, ótima para misturar com menta.",
-    price: 22.9,
-    categoryId: "essencias",
-    image: img.essLimao,
-    stock: 21,
-    timesOrdered: 96,
-    active: true,
-  },
-  {
-    id: "e8",
-    name: "Combo 3 Essências à escolha",
-    description: "Monte seu kit com três sabores e economize.",
-    price: 54.9,
-    categoryId: "essencias",
-    image: img.essCombo,
-    stock: 15,
-    timesOrdered: 84,
-    active: true,
-  },
 ];
 
 const iso = (daysAgo: number, hour = 20) => {
@@ -801,17 +615,6 @@ const iso = (daysAgo: number, hour = 20) => {
 const future = (days: number) => iso(-days, 23);
 
 export const promotions: Promotion[] = [
-  {
-    id: "pr1",
-    title: "Combo Rolê da Sexta com 22% OFF",
-    productId: "p13",
-    oldPrice: 89.9,
-    newPrice: 69.9,
-    expiresAt: future(6),
-    availableQty: 25,
-    featured: true,
-    active: true,
-  },
   {
     id: "pr2",
     title: "Litrão gelado na faixa",
@@ -1038,7 +841,7 @@ const buildOrder = (
 export const orders: Order[] = [
   buildOrder(1024, "c1", [["p1", 12], ["p12", 1]], "SAIU_ENTREGA", 0, 20),
   buildOrder(1023, "c5", [["p3", 10]], "EM_PREPARACAO", 0, 19, "RETIRADA", "DINHEIRO"),
-  buildOrder(1022, "c8", [["p13", 1]], "RECEBIDO", 0, 19),
+  buildOrder(1022, "c8", [["p14", 1]], "RECEBIDO", 0, 19),
   buildOrder(1021, "c4", [["p9", 4], ["p5", 1]], "PRONTO", 0, 18, "RETIRADA", "CARTAO"),
   buildOrder(1020, "c2", [["p7", 2]], "ENTREGUE", 1, 21),
   buildOrder(1019, "c1", [["p2", 6], ["p16", 1]], "ENTREGUE", 3, 22),
@@ -1046,7 +849,7 @@ export const orders: Order[] = [
   buildOrder(1017, "c3", [["p4", 1], ["p10", 2]], "ENTREGUE", 5, 20),
   buildOrder(1016, "c6", [["p3", 4]], "ENTREGUE", 6, 19),
   buildOrder(1015, "c2", [["p8", 3]], "ENTREGUE", 8, 18),
-  buildOrder(1014, "c1", [["p13", 1], ["p9", 2]], "ENTREGUE", 10, 21),
+  buildOrder(1014, "c1", [["p14", 1], ["p9", 2]], "ENTREGUE", 10, 21),
   buildOrder(1013, "c4", [["p11", 6]], "CANCELADO", 12, 15),
 ];
 
@@ -1146,7 +949,7 @@ export const notifications: AppNotification[] = [
     id: "n3",
     audience: "CUSTOMER",
     title: "Tem promoção nova na adega",
-    message: "Combo Rolê da Sexta com 22% de desconto até domingo.",
+    message: "Confira os combos gelados disponíveis para o fim de semana.",
     createdAt: iso(2, 10),
     read: true,
     tone: "info",
