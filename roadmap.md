@@ -10,7 +10,7 @@
 - [x] Cerveja Lata 350ml: novo nome, foto e seleção de marca com preço
 
 - [x] Checkout em etapas (destinatario, endereco+estimativa, cupom, clube, pagamento)
-- [ ] Remover os produtos indicados do catálogo
-- [ ] Renomear Carvão 250g e alinhar a foto dos energéticos
-- [ ] Adicionar Licor 43 com a foto enviada
+- [x] Remover os produtos indicados do catálogo
+- [x] Renomear Carvão 250g e alinhar a foto dos energéticos
+- [x] Adicionar Licor 43 com a foto enviada
 

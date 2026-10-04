@@ -32,7 +32,6 @@ import fotoBeefeater from "@/assets/gin-beefeater.jpg.asset.json";
 import fotoCorona from "@/assets/cerveja-corona.jpg.asset.json";
 import fotoCervejasImportadas from "@/assets/cervejas-importadas.jpg.asset.json";
 import fotoSmirnoff from "@/assets/vodka-smirnoff.jpg.asset.json";
-import fotoEnergetico from "@/assets/energetico.jpg.asset.json";
 import fotoRefrigerante from "@/assets/refrigerante.jpg.asset.json";
 import fotoAgua from "@/assets/agua.jpg.asset.json";
 import fotoGelo from "@/assets/gelo.jpg.asset.json";
@@ -44,9 +43,6 @@ import linhaAlFakher from "@/assets/essencia-alfakher.jpg.asset.json";
 import fotoEnergeticosDisplay from "@/assets/energeticos-display.jpg";
 import fotoRefrigerantesDisplay from "@/assets/refrigerantes-display.jpg";
 import fotoAguaDisplay from "@/assets/agua-display.jpg";
-import fotoAguaGasDisplay from "@/assets/agua-gas-display.jpg";
-import fotoPilsenLata from "@/assets/pilsen-lata.jpg.asset.json";
-import fotoLongNeck from "@/assets/longneck.jpg.asset.json";
 import fotoLitrao from "@/assets/litrao.jpg.asset.json";
 import fotoBlackLabel from "@/assets/black-label.jpg.asset.json";
 import fotoLicorChocolate from "@/assets/licor-chocolate.jpg.asset.json";
@@ -94,7 +90,6 @@ const img = {
   corona: fotoCorona.url,
   cervejasImportadas: fotoCervejasImportadas.url,
   smirnoff: fotoSmirnoff.url,
-  energetico: fotoEnergetico.url,
   refrigerante: fotoRefrigerante.url,
   agua: fotoAgua.url,
   gelo: fotoGelo.url,
@@ -102,12 +97,9 @@ const img = {
   energeticosDisplay: fotoEnergeticosDisplay,
   refrigerantesDisplay: fotoRefrigerantesDisplay,
   aguaDisplay: fotoAguaDisplay,
-  aguaGasDisplay: fotoAguaGasDisplay,
   linhaZiggy: linhaZiggy.url,
   linhaZomo: linhaZomo.url,
   linhaAlFakher: linhaAlFakher.url,
-  pilsenLata: fotoPilsenLata.url,
-  longNeck: fotoLongNeck.url,
   litrao: fotoLitrao.url,
   blackLabel: fotoBlackLabel.url,
   licorChocolate: fotoLicorChocolate.url,
@@ -849,7 +841,7 @@ const buildOrder = (
 export const orders: Order[] = [
   buildOrder(1024, "c1", [["p1", 12], ["p12", 1]], "SAIU_ENTREGA", 0, 20),
   buildOrder(1023, "c5", [["p3", 10]], "EM_PREPARACAO", 0, 19, "RETIRADA", "DINHEIRO"),
-  buildOrder(1022, "c8", [["p13", 1]], "RECEBIDO", 0, 19),
+  buildOrder(1022, "c8", [["p14", 1]], "RECEBIDO", 0, 19),
   buildOrder(1021, "c4", [["p9", 4], ["p5", 1]], "PRONTO", 0, 18, "RETIRADA", "CARTAO"),
   buildOrder(1020, "c2", [["p7", 2]], "ENTREGUE", 1, 21),
   buildOrder(1019, "c1", [["p2", 6], ["p16", 1]], "ENTREGUE", 3, 22),
@@ -857,7 +849,7 @@ export const orders: Order[] = [
   buildOrder(1017, "c3", [["p4", 1], ["p10", 2]], "ENTREGUE", 5, 20),
   buildOrder(1016, "c6", [["p3", 4]], "ENTREGUE", 6, 19),
   buildOrder(1015, "c2", [["p8", 3]], "ENTREGUE", 8, 18),
-  buildOrder(1014, "c1", [["p13", 1], ["p9", 2]], "ENTREGUE", 10, 21),
+  buildOrder(1014, "c1", [["p14", 1], ["p9", 2]], "ENTREGUE", 10, 21),
   buildOrder(1013, "c4", [["p11", 6]], "CANCELADO", 12, 15),
 ];
 
@@ -957,7 +949,7 @@ export const notifications: AppNotification[] = [
     id: "n3",
     audience: "CUSTOMER",
     title: "Tem promoção nova na adega",
-    message: "Combo Rolê da Sexta com 22% de desconto até domingo.",
+    message: "Confira os combos gelados disponíveis para o fim de semana.",
     createdAt: iso(2, 10),
     read: true,
     tone: "info",
