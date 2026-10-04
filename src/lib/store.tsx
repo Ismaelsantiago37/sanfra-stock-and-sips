@@ -53,6 +53,10 @@ interface AppState {
   updateCartLine: (index: number, item: CartItem | null) => void;
   unitPriceOf: (item: CartItem) => number;
   clearCart: () => void;
+  /** Quantas unidades ainda podem ir para o carrinho (estoque − o que já está no carrinho) */
+  stockLeft: (productId: string, variant?: string, excludeIndex?: number) => number;
+  /** Estoque cadastrado de uma variação (ou do produto, sem variação) */
+  stockOf: (productId: string, variant?: string) => number;
   cartCount: number;
   cartSubtotal: number;
   // orders
@@ -91,13 +95,43 @@ interface Persisted {
   userId: string | null;
   cart: CartItem[];
   orders: Order[];
+  /** produtos (estoque editado pelo admin) */
+  products?: Product[];
+}
+
+/** Lista de variações que têm estoque próprio (sabores ou marcas/tamanhos) */
+export function variantLabels(p: Product): string[] {
+  if (p.options?.kind === "size") return p.options.sizes.map((s) => s.label);
+  if (p.options?.kind === "flavor") return p.options.flavors;
+  return [];
+}
+
+/** Semeia estoque por variação nos dados mockados (alguns sabores começam em falta para demonstração) */
+function seedVariantStock(list: Product[]): Product[] {
+  return list.map((p) => {
+    const labels = variantLabels(p);
+    if (!labels.length || p.variantStock) return p;
+    const variantStock: Record<string, number> = {};
+    labels.forEach((l, i) => {
+      let h = 0;
+      for (const ch of p.id + l) h = (h * 31 + ch.charCodeAt(0)) >>> 0;
+      variantStock[l] = h % 9 === 0 && i > 0 ? 0 : 4 + (h % 22);
+    });
+    return { ...p, variantStock, stock: Object.values(variantStock).reduce((a, b) => a + b, 0) };
+  });
+}
+
+/** Mantém `stock` sincronizado com a soma do estoque por variação */
+function normalizeStock(p: Product): Product {
+  if (!p.variantStock) return p;
+  return { ...p, stock: Object.values(p.variantStock).reduce((a, b) => a + Math.max(0, b), 0) };
 }
 
 export function AppProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<User | null>(null);
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [products, setProducts] = useState<Product[]>(mock.products);
+  const [products, setProducts] = useState<Product[]>(() => seedVariantStock(mock.products));
   const [promotions, setPromotions] = useState<Promotion[]>(mock.promotions);
   const [orders, setOrders] = useState<Order[]>(mock.orders);
   const [customers] = useState<Customer[]>(mock.customers);
@@ -112,6 +146,16 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const data = JSON.parse(raw) as Persisted;
         setCart(data.cart ?? []);
         if (data.orders?.length) setOrders(data.orders);
+        // estoque salvo pelo admin (mantém produtos novos do catálogo que ainda não estavam salvos)
+        if (data.products?.length) {
+          const saved = new Map(data.products.map((p) => [p.id, p]));
+          setProducts((prev) =>
+            prev.map((p) => {
+              const sp = saved.get(p.id);
+              return sp ? normalizeStock({ ...p, stock: sp.stock, variantStock: sp.variantStock ?? p.variantStock, active: sp.active, price: sp.price }) : p;
+            }),
+          );
+        }
         const u = mock.users.find((x) => x.id === data.userId);
         setUser(u ?? null);
       }
@@ -124,9 +168,38 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (loading) return;
-    const payload: Persisted = { userId: user?.id ?? null, cart, orders };
+    const payload: Persisted = { userId: user?.id ?? null, cart, orders, products };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-  }, [user, cart, orders, loading]);
+  }, [user, cart, orders, products, loading]);
+
+  const stockOf = useCallback(
+    (productId: string, variant?: string) => {
+      const p = products.find((x) => x.id === productId);
+      if (!p) return 0;
+      if (variant && p.variantStock) return Math.max(0, p.variantStock[variant] ?? 0);
+      return Math.max(0, p.stock);
+    },
+    [products],
+  );
+
+  // ⚠️ LIMITE DE ESTOQUE: desconta do estoque o que o cliente já colocou no carrinho,
+  // assim nunca é possível adicionar mais unidades do que as disponíveis.
+  const stockLeft = useCallback(
+    (productId: string, variant?: string, excludeIndex?: number) => {
+      const p = products.find((x) => x.id === productId);
+      if (!p) return 0;
+      const perVariant = !!(variant && p.variantStock);
+      let used = 0;
+      cart.forEach((i, n) => {
+        if (n === excludeIndex || i.productId !== productId) return;
+        if (!perVariant) used += i.quantity;
+        else if (i.size !== undefined) used += i.size === variant ? i.quantity : 0;
+        else used += (i.flavors ?? []).filter((f) => f === variant).length;
+      });
+      return Math.max(0, stockOf(productId, variant) - used);
+    },
+    [products, cart, stockOf],
+  );
 
   const login = useCallback(async (email: string, password: string) => {
     await new Promise((r) => setTimeout(r, 500));
@@ -225,6 +298,23 @@ export function AppProvider({ children }: { children: ReactNode }) {
           quantity: i.quantity,
         };
       });
+      // baixa no estoque (geral e por variação) após o pedido
+      setProducts((prev) =>
+        prev.map((p) => {
+          const lines = cart.filter((i) => i.productId === p.id);
+          if (!lines.length) return p;
+          if (p.variantStock) {
+            const vs = { ...p.variantStock };
+            lines.forEach((i) => {
+              if (i.size) vs[i.size] = Math.max(0, (vs[i.size] ?? 0) - i.quantity);
+              (i.flavors ?? []).forEach((f) => (vs[f] = Math.max(0, (vs[f] ?? 0) - 1)));
+            });
+            return normalizeStock({ ...p, variantStock: vs });
+          }
+          const q = lines.reduce((a, i) => a + i.quantity, 0);
+          return { ...p, stock: Math.max(0, p.stock - q) };
+        }),
+      );
       const subtotal = items.reduce((s, i) => s + i.unitPrice * i.quantity, 0);
       const deliveryFee = type === "ENTREGA" ? (fee ?? 6) : 0;
       const nextNumber = Math.max(...orders.map((o) => o.number)) + 1;
@@ -276,7 +366,11 @@ export function AppProvider({ children }: { children: ReactNode }) {
     [],
   );
 
-  const saveProduct = useCallback((product: Product) => {
+  // ⚠️ ATUALIZAÇÃO DE ESTOQUE PELO ADMIN: ao salvar (menu Estoque/Produtos), o produto é
+  // substituído no estado global — todos os cards, selos "Últimas X" e limites do carrinho
+  // dos clientes passam a usar o novo valor imediatamente (e ele fica salvo no navegador).
+  const saveProduct = useCallback((raw: Product) => {
+    const product = normalizeStock(raw);
     setProducts((prev) => {
       const exists = prev.some((p) => p.id === product.id);
       return exists ? prev.map((p) => (p.id === product.id ? product : p)) : [product, ...prev];
@@ -320,6 +414,8 @@ export function AppProvider({ children }: { children: ReactNode }) {
     updateCartLine,
     unitPriceOf,
     clearCart,
+    stockLeft,
+    stockOf,
     cartCount,
     cartSubtotal,
     placeOrder,
