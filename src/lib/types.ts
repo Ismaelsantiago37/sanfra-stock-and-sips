@@ -78,6 +78,8 @@ export interface Product {
   categoryId: CategoryId;
   image: string;
   stock: number;
+  /** Estoque por variação (sabor/marca/tamanho). Quando existe, `stock` é a soma destes valores. */
+  variantStock?: Record<string, number> | undefined;
   timesOrdered: number;
   active: boolean;
   /** Variações escolhidas na hora da compra: sabores (por unidade) ou tamanhos com preço */
