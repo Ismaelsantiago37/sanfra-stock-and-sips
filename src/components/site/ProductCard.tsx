@@ -23,7 +23,11 @@ export function ProductCard({ product }: { product: Product }) {
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
         {off > 0 && <Badge className="absolute left-2 top-2">-{off}%</Badge>}
-        {product.stock <= 20 && (
+        {product.stock <= 0 ? (
+          <Badge variant="destructive" className="absolute right-2 top-2 text-xs">
+            Esgotado
+          </Badge>
+        ) : product.stock <= 20 && (
           <Badge variant="outline" className="absolute right-2 top-2 bg-background/80 text-xs">
             Últimas {product.stock}
           </Badge>
