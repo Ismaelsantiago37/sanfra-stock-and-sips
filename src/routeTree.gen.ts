@@ -22,6 +22,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AdminClientesRouteImport } from './routes/admin/clientes'
 import { Route as AdminConfiguracoesRouteImport } from './routes/admin/configuracoes'
 import { Route as AdminDespesasRouteImport } from './routes/admin/despesas'
+import { Route as AdminEstoqueRouteImport } from './routes/admin/estoque'
 import { Route as AdminFidelidadeRouteImport } from './routes/admin/fidelidade'
 import { Route as AdminFinanceiroRouteImport } from './routes/admin/financeiro'
 import { Route as AdminLucroRouteImport } from './routes/admin/lucro'
@@ -98,6 +99,11 @@ const AdminDespesasRoute = AdminDespesasRouteImport.update({
   path: '/admin/despesas',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminEstoqueRoute = AdminEstoqueRouteImport.update({
+  id: '/admin/estoque',
+  path: '/admin/estoque',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminFidelidadeRoute = AdminFidelidadeRouteImport.update({
   id: '/admin/fidelidade',
   path: '/admin/fidelidade',
@@ -162,6 +168,7 @@ export interface FileRoutesByFullPath {
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/configuracoes': typeof AdminConfiguracoesRoute
   '/admin/despesas': typeof AdminDespesasRoute
+  '/admin/estoque': typeof AdminEstoqueRoute
   '/admin/fidelidade': typeof AdminFidelidadeRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/lucro': typeof AdminLucroRoute
@@ -187,6 +194,7 @@ export interface FileRoutesByTo {
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/configuracoes': typeof AdminConfiguracoesRoute
   '/admin/despesas': typeof AdminDespesasRoute
+  '/admin/estoque': typeof AdminEstoqueRoute
   '/admin/fidelidade': typeof AdminFidelidadeRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/lucro': typeof AdminLucroRoute
@@ -213,6 +221,7 @@ export interface FileRoutesById {
   '/admin/clientes': typeof AdminClientesRoute
   '/admin/configuracoes': typeof AdminConfiguracoesRoute
   '/admin/despesas': typeof AdminDespesasRoute
+  '/admin/estoque': typeof AdminEstoqueRoute
   '/admin/fidelidade': typeof AdminFidelidadeRoute
   '/admin/financeiro': typeof AdminFinanceiroRoute
   '/admin/lucro': typeof AdminLucroRoute
@@ -240,6 +249,7 @@ export interface FileRouteTypes {
     | '/admin/clientes'
     | '/admin/configuracoes'
     | '/admin/despesas'
+    | '/admin/estoque'
     | '/admin/fidelidade'
     | '/admin/financeiro'
     | '/admin/lucro'
@@ -265,6 +275,7 @@ export interface FileRouteTypes {
     | '/admin/clientes'
     | '/admin/configuracoes'
     | '/admin/despesas'
+    | '/admin/estoque'
     | '/admin/fidelidade'
     | '/admin/financeiro'
     | '/admin/lucro'
@@ -290,6 +301,7 @@ export interface FileRouteTypes {
     | '/admin/clientes'
     | '/admin/configuracoes'
     | '/admin/despesas'
+    | '/admin/estoque'
     | '/admin/fidelidade'
     | '/admin/financeiro'
     | '/admin/lucro'
@@ -316,6 +328,7 @@ export interface RootRouteChildren {
   AdminClientesRoute: typeof AdminClientesRoute
   AdminConfiguracoesRoute: typeof AdminConfiguracoesRoute
   AdminDespesasRoute: typeof AdminDespesasRoute
+  AdminEstoqueRoute: typeof AdminEstoqueRoute
   AdminFidelidadeRoute: typeof AdminFidelidadeRoute
   AdminFinanceiroRoute: typeof AdminFinanceiroRoute
   AdminLucroRoute: typeof AdminLucroRoute
@@ -422,6 +435,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminDespesasRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/estoque': {
+      id: '/admin/estoque'
+      path: '/admin/estoque'
+      fullPath: '/admin/estoque'
+      preLoaderRoute: typeof AdminEstoqueRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/fidelidade': {
       id: '/admin/fidelidade'
       path: '/admin/fidelidade'
@@ -508,6 +528,7 @@ const rootRouteChildren: RootRouteChildren = {
   AdminClientesRoute: AdminClientesRoute,
   AdminConfiguracoesRoute: AdminConfiguracoesRoute,
   AdminDespesasRoute: AdminDespesasRoute,
+  AdminEstoqueRoute: AdminEstoqueRoute,
   AdminFidelidadeRoute: AdminFidelidadeRoute,
   AdminFinanceiroRoute: AdminFinanceiroRoute,
   AdminLucroRoute: AdminLucroRoute,
