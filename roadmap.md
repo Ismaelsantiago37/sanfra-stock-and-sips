@@ -15,3 +15,4 @@
 - [x] Adicionar Licor 43 com a foto enviada
 
 - [x] Limite de estoque no carrinho, estoque por sabor/marca e menu Estoque do admin
+- [x] Tela de promoções do admin com cronogramas (fim de semana, 15 dias, mês)
