@@ -104,6 +104,10 @@ export interface Promotion {
   oldPrice: number;
   newPrice: number;
   expiresAt: string;
+  /** início da oferta (ISO). Sem valor = já vale. */
+  startsAt?: string | undefined;
+  /** cronograma que gerou a promoção (fim de semana, 15 dias, mês) */
+  scheduleId?: string | undefined;
   availableQty: number | null;
   featured: boolean;
   active: boolean;

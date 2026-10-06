@@ -6,6 +6,7 @@ import { SiteLayout } from "@/components/site/SiteLayout";
 import { Badge } from "@/components/ui/badge";
 import { brl, dateBR } from "@/lib/format";
 import { useApp } from "@/lib/store";
+import { isPromoLive } from "@/lib/store";
 
 export const Route = createFileRoute("/promocoes")({
   head: () => ({
@@ -25,7 +26,7 @@ export const Route = createFileRoute("/promocoes")({
 
 function Promocoes() {
   const { promotions, products } = useApp();
-  const list = promotions.filter((p) => p.active);
+  const list = promotions.filter((p) => isPromoLive(p));
 
   return (
     <SiteLayout>

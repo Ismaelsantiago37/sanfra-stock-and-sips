@@ -74,6 +74,8 @@ interface AppState {
   updateOrderStatus: (orderId: string, status: OrderStatus) => void;
   // promotions
   savePromotion: (promo: Promotion) => void;
+  /** grava várias promoções de uma vez (cronogramas) */
+  savePromotions: (promos: Promotion[]) => void;
   removePromotion: (id: string) => void;
   // products
   saveProduct: (product: Product) => void;
@@ -97,6 +99,15 @@ interface Persisted {
   orders: Order[];
   /** produtos (estoque editado pelo admin) */
   products?: Product[];
+  promotions?: Promotion[];
+}
+
+// ⚠️ PROMOÇÃO VIGENTE: só vale para o cliente se estiver ativa e dentro do período
+// (início/fim) definido pelo admin — é isso que agenda os cronogramas automaticamente.
+export function isPromoLive(p: Promotion, now = new Date()) {
+  if (!p.active) return false;
+  if (p.startsAt && new Date(p.startsAt) > now) return false;
+  return new Date(p.expiresAt) >= now;
 }
 
 /** Lista de variações que têm estoque próprio (sabores ou marcas/tamanhos) */
@@ -146,6 +157,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
         const data = JSON.parse(raw) as Persisted;
         setCart(data.cart ?? []);
         if (data.orders?.length) setOrders(data.orders);
+        if (data.promotions) setPromotions(data.promotions);
         // estoque salvo pelo admin (mantém produtos novos do catálogo que ainda não estavam salvos)
         if (data.products?.length) {
           const saved = new Map(data.products.map((p) => [p.id, p]));
@@ -168,9 +180,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (loading) return;
-    const payload: Persisted = { userId: user?.id ?? null, cart, orders, products };
+    const payload: Persisted = { userId: user?.id ?? null, cart, orders, products, promotions };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
-  }, [user, cart, orders, products, loading]);
+  }, [user, cart, orders, products, promotions, loading]);
 
   const stockOf = useCallback(
     (productId: string, variant?: string) => {
@@ -257,7 +269,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
 
   const priceOf = useCallback(
     (productId: string) => {
-      const promo = promotions.find((p) => p.active && p.productId === productId);
+      const promo = promotions.find((p) => isPromoLive(p) && p.productId === productId);
       if (promo) return promo.newPrice;
       return products.find((p) => p.id === productId)?.price ?? 0;
     },
@@ -361,6 +373,10 @@ export function AppProvider({ children }: { children: ReactNode }) {
     });
   }, []);
 
+  const savePromotions = useCallback((list: Promotion[]) => {
+    setPromotions((prev) => [...list, ...prev.filter((p) => !list.some((n) => n.id === p.id))]);
+  }, []);
+
   const removePromotion = useCallback(
     (id: string) => setPromotions((prev) => prev.filter((p) => p.id !== id)),
     [],
@@ -421,6 +437,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
     placeOrder,
     updateOrderStatus,
     savePromotion,
+    savePromotions,
     removePromotion,
     saveProduct,
     removeProduct,
@@ -442,7 +459,7 @@ export function usePriceOf() {
   const { products, promotions } = useApp();
   return useCallback(
     (productId: string) => {
-      const promo = promotions.find((p) => p.active && p.productId === productId);
+      const promo = promotions.find((p) => isPromoLive(p) && p.productId === productId);
       const base = products.find((p) => p.id === productId)?.price ?? 0;
       return { price: promo ? promo.newPrice : base, oldPrice: promo ? promo.oldPrice : null };
     },
