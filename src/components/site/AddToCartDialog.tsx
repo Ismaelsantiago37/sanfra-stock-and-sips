@@ -26,7 +26,7 @@ export function AddToCartDialog({
   open: boolean;
   onOpenChange: (o: boolean) => void;
 }) {
-  const { addToCart } = useApp();
+  const { addToCart, stockLeft } = useApp();
   const priceOf = usePriceOf();
   const opts = product.options;
   const optionLabel = opts?.kind === "size" ? (opts.optionLabel ?? "tamanho") : "tamanho";
@@ -64,6 +64,27 @@ export function AddToCartDialog({
     ready = !!flavors;
   }
   if (opts?.kind === "size") ready = !!size;
+
+  // ⚠️ LIMITE DE ESTOQUE no modal: a quantidade máxima respeita o disponível
+  // (por variação escolhida, quando o produto tem estoque por sabor/marca/tamanho).
+  const left = (v?: string) => stockLeft(product.id, v);
+  let maxQty = left();
+  if (opts?.kind === "size" && size) maxQty = left(size);
+  if (opts?.kind === "flavor" && (qty === 1 || mode === "same") && flavor) maxQty = left(flavor);
+  const soldOut = left() <= 0;
+  // sabores diferentes: cada sabor não pode ser usado mais vezes que o disponível
+  const usedDiff = (f: string, except: number) =>
+    perUnit.filter((x, n) => x === f && n !== except).length;
+  if (ready && opts?.kind === "flavor" && flavors) {
+    const c = new Map<string, number>();
+    flavors.forEach((f) => c.set(f, (c.get(f) ?? 0) + 1));
+    for (const [f, n] of c) if (n > left(f)) ready = false;
+  }
+  if (qty > maxQty || soldOut) ready = false;
+
+  useEffect(() => {
+    if (maxQty > 0 && qty > maxQty) setQty(maxQty);
+  }, [maxQty, qty]);
 
   const confirm = () => {
     addToCart(product.id, qty, { size, flavors });
@@ -106,10 +127,18 @@ export function AddToCartDialog({
           </div>
         </DialogHeader>
 
+        <p className="-mt-2 text-xs text-muted-foreground">
+          {soldOut ? (
+            <span className="text-destructive">Este produto está em falta no momento.</span>
+          ) : (
+            <>Disponível agora: <strong className="text-primary">{maxQty}</strong> unidade(s)</>
+          )}
+        </p>
+
         {opts?.kind === "size" && (
           <section className="space-y-2">
             <p className="text-sm font-semibold">1. Escolha {optionLabel === "marca" ? "a marca" : optionLabel === "sabor" ? "o sabor" : "o tamanho"}</p>
-            <SizeGrid sizes={opts.sizes} value={size} onChange={setSize} />
+            <SizeGrid sizes={opts.sizes} value={size} onChange={setSize} available={left} />
           </section>
         )}
 
@@ -118,6 +147,7 @@ export function AddToCartDialog({
             {opts?.kind === "size" ? "2. Quantidade" : "Quantidade"}
           </p>
           <QtyStepper
+            max={Math.max(1, maxQty)}
             value={qty}
             onChange={(n) => {
               setQty(n);
@@ -146,7 +176,7 @@ export function AddToCartDialog({
                 <p className="text-sm font-semibold">
                   {qty > 1 ? `Sabor para as ${qty} unidades` : "Escolha o sabor"}
                 </p>
-                <FlavorGrid flavors={opts.flavors} value={flavor} onChange={setFlavor} />
+                <FlavorGrid flavors={opts.flavors} value={flavor} onChange={setFlavor} available={(f) => left(f) - (qty > 1 ? 0 : 0)} />
               </div>
             ) : (
               Array.from({ length: qty }, (_, i) => (
@@ -161,6 +191,7 @@ export function AddToCartDialog({
                     compact
                     flavors={opts.flavors}
                     value={perUnit[i]}
+                    available={(f) => left(f) - usedDiff(f, i)}
                     onChange={(f) =>
                       setPerUnit((prev) => {
                         const next = [...prev];
@@ -181,7 +212,7 @@ export function AddToCartDialog({
             <p className="font-display text-2xl text-primary">{brl(unit * qty)}</p>
           </div>
           <Button size="lg" disabled={!ready} onClick={confirm}>
-            {ready ? "Adicionar ao carrinho" : opts?.kind === "size" ? `Escolha ${optionLabel === "marca" ? "a marca" : optionLabel === "sabor" ? "o sabor" : "o tamanho"}` : "Escolha o sabor"}
+            {soldOut ? "Esgotado no momento" : ready ? "Adicionar ao carrinho" : opts?.kind === "size" ? `Escolha ${optionLabel === "marca" ? "a marca" : optionLabel === "sabor" ? "o sabor" : "o tamanho"}` : "Escolha o sabor"}
           </Button>
         </div>
       </DialogContent>

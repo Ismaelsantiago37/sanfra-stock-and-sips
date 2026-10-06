@@ -77,7 +77,17 @@ function Carrinho() {
 }
 
 function CartLine({ item, index, product }: { item: CartItem; index: number; product: Product }) {
-  const { updateCartLine, unitPriceOf } = useApp();
+  const { updateCartLine, unitPriceOf, stockLeft } = useApp();
+  // ⚠️ LIMITE DE ESTOQUE no carrinho: não deixa aumentar além do disponível
+  const last = item.flavors?.[item.flavors.length - 1];
+  const maxQty = item.size
+    ? stockLeft(product.id, item.size, index)
+    : opts_kind(product) === "flavor" && last
+      ? Math.min(
+          stockLeft(product.id, undefined, index),
+          (item.flavors ?? []).length + stockLeft(product.id, last, index) - (item.flavors ?? []).filter((f) => f === last).length,
+        )
+      : stockLeft(product.id, undefined, index);
   const [editing, setEditing] = useState(false);
   const opts = product.options;
   const unit = unitPriceOf(item);
@@ -170,7 +180,7 @@ function CartLine({ item, index, product }: { item: CartItem; index: number; pro
           </p>
         </div>
         <div className="flex items-center gap-1">
-          <QtyStepper value={item.quantity} onChange={setQty} />
+          <QtyStepper value={item.quantity} onChange={setQty} max={Math.max(1, maxQty)} />
           {opts && (
             <Button
               size="icon"
@@ -200,6 +210,7 @@ function CartLine({ item, index, product }: { item: CartItem; index: number; pro
           <SizeGrid
             sizes={opts.sizes}
             value={item.size}
+            available={(sz) => stockLeft(product.id, sz, index)}
             onChange={(size) => updateCartLine(index, { ...item, size })}
           />
         </div>
@@ -216,6 +227,7 @@ function CartLine({ item, index, product }: { item: CartItem; index: number; pro
                 compact
                 flavors={opts.flavors}
                 value={f}
+                available={(fl) => stockLeft(product.id, fl, index) - (item.flavors ?? []).filter((x, n) => x === fl && n !== i).length}
                 onChange={(nf) => {
                   const flavors = [...(item.flavors ?? [])];
                   flavors[i] = nf;
@@ -228,4 +240,8 @@ function CartLine({ item, index, product }: { item: CartItem; index: number; pro
       )}
     </li>
   );
+}
+
+function opts_kind(p: Product) {
+  return p.options?.kind;
 }

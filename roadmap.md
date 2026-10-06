@@ -14,3 +14,4 @@
 - [x] Renomear Carvão 250g e alinhar a foto dos energéticos
 - [x] Adicionar Licor 43 com a foto enviada
 
+- [x] Limite de estoque no carrinho, estoque por sabor/marca e menu Estoque do admin
