@@ -219,6 +219,7 @@ function PromoCard({
             if (end < start) return toast.error("A data final deve ser depois do início.");
             onSave({ ...p, newPrice: v, startsAt: `${start}T00:00:00`, expiresAt: `${end}T23:59:59` });
             toast.success("Promoção atualizada");
+            return undefined;
           }}
         >
           Salvar
@@ -273,6 +274,7 @@ function NewPromotion({ products, onSave }: { products: Product[]; onSave: (p: P
     if (!n) return toast.error("O preço promocional precisa ser menor que o preço atual.");
     toast.success(`${n} promoção(ões) criada(s)`);
     setSel([]);
+    return undefined;
   };
 
   return (
