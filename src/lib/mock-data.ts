@@ -30,7 +30,6 @@ import fotoWoodford from "@/assets/whisky-woodford.jpg.asset.json";
 import fotoTanqueray from "@/assets/gin-tanqueray.jpg.asset.json";
 import fotoBeefeater from "@/assets/gin-beefeater.jpg.asset.json";
 import fotoCorona from "@/assets/cerveja-corona.jpg.asset.json";
-import fotoCervejasImportadas from "@/assets/cervejas-importadas.jpg.asset.json";
 import fotoSmirnoff from "@/assets/vodka-smirnoff.jpg.asset.json";
 import fotoRefrigerante from "@/assets/refrigerante.jpg.asset.json";
 import fotoAgua from "@/assets/agua.jpg.asset.json";
@@ -88,7 +87,6 @@ const img = {
   tanqueray: fotoTanqueray.url,
   beefeater: fotoBeefeater.url,
   corona: fotoCorona.url,
-  cervejasImportadas: fotoCervejasImportadas.url,
   smirnoff: fotoSmirnoff.url,
   refrigerante: fotoRefrigerante.url,
   agua: fotoAgua.url,
@@ -272,7 +270,7 @@ export const products: Product[] = [
   },
   {
     id: "p8",
-    name: "Licor Cremoso de Chocolate 750ml",
+    name: "Licor de Chocolate 750ml",
     description:
       "Licor cremoso de chocolate 750ml, aveludado e doce na medida. Ótimo gelado, com gelo ou por cima do sorvete.",
     price: 64.9,
@@ -368,17 +366,6 @@ export const products: Product[] = [
     image: img.beefeater,
     stock: 14,
     timesOrdered: 89,
-    active: true,
-  },
-  {
-    id: "p26",
-    name: "Pack Cervejas Importadas 6un",
-    description: "Seleção da casa: Heineken, Stella, Amstel, Budweiser e Corona geladas.",
-    price: 74.9,
-    categoryId: "importados",
-    image: img.cervejasImportadas,
-    stock: 30,
-    timesOrdered: 221,
     active: true,
   },
   {

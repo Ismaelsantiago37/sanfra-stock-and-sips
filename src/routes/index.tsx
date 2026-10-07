@@ -28,6 +28,8 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "Whisky, cervejas, licores e importados gelados com entrega no bairro.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Home,
@@ -159,7 +161,7 @@ function Home() {
               Mapa meramente ilustrativo, sem endereço real.
             </p>
             <Button asChild className="mt-4 w-full">
-              <Link to="/checkout">Pedir para retirada</Link>
+              <Link to="/produtos">Pedir para retirada</Link>
             </Button>
           </div>
         </div>
