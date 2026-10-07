@@ -16,6 +16,8 @@ export const Route = createFileRoute("/perfil")({
       },
       { property: "og:title", content: "Meu perfil — Adega do Sanfra" },
       { property: "og:description", content: "Seus dados e histórico na Adega do Sanfra." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Perfil,
@@ -77,11 +79,20 @@ function Perfil() {
         )}
 
         {user.role === "ADMIN" && (
-          <Button asChild className="mt-6 w-full" size="lg">
-            <Link to="/admin">
-              <ShieldCheck className="h-4 w-4" /> Abrir painel do dono
-            </Link>
-          </Button>
+          <section className="mt-6 border-t border-border pt-5">
+            <h2 className="flex items-center gap-2 font-display text-xl">
+              <ShieldCheck className="h-5 w-5 text-primary" /> Seu acesso de administrador
+            </h2>
+            <ul className="mt-3 space-y-2 text-sm text-muted-foreground">
+              <li><strong className="text-foreground">Catálogo e estoque:</strong> criar e aprimorar produtos, ajustar preços e controlar unidades por sabor, marca ou tamanho.</li>
+              <li><strong className="text-foreground">Promoções:</strong> definir valores e períodos, simular cronogramas e programar ofertas.</li>
+              <li><strong className="text-foreground">Financeiro:</strong> acompanhar vendas, despesas, lucro e cobranças de compras presenciais.</li>
+              <li><strong className="text-foreground">Operação:</strong> acompanhar pedidos, clientes, fidelidade e os dias e horários de maior movimento.</li>
+            </ul>
+            <Button asChild className="mt-4 w-full" size="lg">
+              <Link to="/admin"><ShieldCheck className="h-4 w-4" /> Abrir painel do dono</Link>
+            </Button>
+          </section>
         )}
 
         <Button
