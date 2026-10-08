@@ -49,6 +49,8 @@ import fotoLongNeckMarcas from "@/assets/cerveja-long-neck-marcas.jpg.asset.json
 import fotoSkolBeats from "@/assets/skol-beats-sabores.jpg.asset.json";
 import fotoCervejaLataMarcas from "@/assets/cerveja-lata-marcas.png.asset.json";
 import fotoLicor43 from "@/assets/licor-43.jpg.asset.json";
+import fotoDose from "@/assets/dose.jpg.asset.json";
+import fotoGeloSabor from "@/assets/gelo-sabor.jpg.asset.json";
 
 export const categories: Category[] = [
   { id: "whisky", name: "Whisky", emoji: "🥃" },
@@ -105,9 +107,50 @@ const img = {
   skolBeats: fotoSkolBeats.url,
   cervejaLataMarcas: fotoCervejaLataMarcas.url,
   licor43: fotoLicor43.url,
+  dose: fotoDose.url,
+  geloSabor: fotoGeloSabor.url,
 };
 
 export const products: Product[] = [
+  {
+    id: "p-dose-700",
+    name: "Dose 700ml",
+    description: "Monte seu copo: escolha a bebida, o energético e o gelo. Somente retirada e pagamento antecipado.",
+    price: 35,
+    categoryId: "combos",
+    image: img.dose,
+    stock: 40,
+    timesOrdered: 190,
+    active: true,
+    pickupOnly: true,
+    prepaidOnly: true,
+    options: {
+      kind: "dose",
+      bebidas: [
+        { label: "Jack de Maçã", price: 38 },
+        { label: "Jack Tradicional", price: 35 },
+        { label: "Jack Blackberry", price: 38 },
+        { label: "Gin Beefeater", price: 35 },
+        { label: "Gin Tanqueray", price: 38 },
+        { label: "Red Label", price: 35 },
+        { label: "Black Label", price: 42 },
+      ],
+      energeticos: ["Red Bull Tradicional", "Red Bull sem Açúcar", "Baly"],
+      gelos: ["Coco", "Melancia", "Maracujá"],
+    },
+  },
+  {
+    id: "p-gelo-sabor",
+    name: "Gelo de Sabor 200ml",
+    description: "Escolha entre coco, maracujá, morango, maçã verde, melancia e pêssego.",
+    price: 2.6,
+    categoryId: "gelo",
+    image: img.geloSabor,
+    stock: 120,
+    timesOrdered: 175,
+    active: true,
+    options: { kind: "flavor", flavors: ["Coco", "Maracujá", "Morango", "Maçã Verde", "Melancia", "Pêssego"] },
+  },
   {
     id: "cb1",
     name: "Combo Perfeito: Whisky + Red Bull + Gelo",

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import { ComboDialog } from "./ComboDialog";
+import { DoseDialog } from "./DoseDialog";
 import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
@@ -105,6 +106,15 @@ export function AddToCartDialog({
           toast.success("Combo adicionado ao carrinho", { description: product.name });
         }}
       />
+    );
+  }
+
+  if (opts?.kind === "dose") {
+    return (
+      <DoseDialog product={product} open={open} onOpenChange={onOpenChange} onConfirm={(dose) => {
+        addToCart(product.id, 1, { dose });
+        toast.success("Dose adicionada ao carrinho", { description: "Retirada e pagamento antecipado obrigatórios." });
+      }} />
     );
   }
 

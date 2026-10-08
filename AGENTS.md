@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Product variations with different prices use the existing size-option structure plus a user-facing option label, keeping pricing and cart logic unified.
+- Product-specific fulfilment and payment restrictions live on Product flags so cart and checkout enforce the same rules.

@@ -16,6 +16,7 @@
 
 - [x] Limite de estoque no carrinho, estoque por sabor/marca e menu Estoque do admin
 - [x] Tela de promoções do admin com cronogramas (fim de semana, 15 dias, mês)
-- [ ] Resumo do perfil, link de retirada e ajustes de catálogo
-- [ ] Dose em três etapas e Gelo de sabor com fotos enviadas
-- [ ] Pagamento online verificado da Dose (depende de conexão de pagamentos)
+- [x] Resumo do perfil, link de retirada e ajustes de catálogo
+- [x] Dose em três etapas e Gelo de sabor com fotos enviadas
+- [x] Aplicar Gelo de sabor a R$ 2,60 e Dose a partir de R$ 35,00, variando pela bebida
+- [ ] Pagamento online real da Dose (depende da confirmação para ativar Shopify)

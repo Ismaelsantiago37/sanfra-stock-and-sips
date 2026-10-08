@@ -84,6 +84,10 @@ export interface Product {
   active: boolean;
   /** Variações escolhidas na hora da compra: sabores (por unidade) ou tamanhos com preço */
   options?: ProductOptions | undefined;
+  /** Item disponível exclusivamente para retirada no balcão. */
+  pickupOnly?: boolean | undefined;
+  /** Item preparado somente após confirmação de pagamento. */
+  prepaidOnly?: boolean | undefined;
   /** Aluguel (ex.: narguilé): valores por hora/dia e juros de atraso na devolução */
   rental?:
     | {
@@ -192,6 +196,8 @@ export interface CartItem {
   flavors?: string[] | undefined;
   /** montagem do combo (produtos com opção de combo) */
   combo?: ComboSelection | undefined;
+  /** montagem individual da Dose 700ml */
+  dose?: DoseSelection | undefined;
 }
 
 export type ProductOptions =
@@ -208,10 +214,22 @@ export type ProductOptions =
       gelos: string[];
       geloPrice: number;
       geloQty: number;
+    }
+  | {
+      kind: "dose";
+      bebidas: { label: string; price: number }[];
+      energeticos: string[];
+      gelos: string[];
     };
 
 export interface ComboSelection {
   whisky: string;
   energeticos: Record<string, number>;
   gelos: Record<string, number>;
+}
+
+export interface DoseSelection {
+  bebida: string;
+  energetico: string;
+  gelo: string;
 }
