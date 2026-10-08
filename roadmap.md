@@ -18,4 +18,5 @@
 - [x] Tela de promoções do admin com cronogramas (fim de semana, 15 dias, mês)
 - [ ] Resumo do perfil, link de retirada e ajustes de catálogo
 - [ ] Dose em três etapas e Gelo de sabor com fotos enviadas
+- [ ] Aplicar Gelo de sabor a R$ 2,60 e Dose a partir de R$ 35,00, variando pela bebida
 - [ ] Pagamento online verificado da Dose (depende de conexão de pagamentos)
