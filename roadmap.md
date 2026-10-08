@@ -19,4 +19,4 @@
 - [x] Resumo do perfil, link de retirada e ajustes de catálogo
 - [x] Dose em três etapas e Gelo de sabor com fotos enviadas
 - [x] Aplicar Gelo de sabor a R$ 2,60 e Dose a partir de R$ 35,00, variando pela bebida
-- [ ] Pagamento online verificado da Dose (depende de conexão de pagamentos)
+- [ ] Pagamento online real da Dose (depende da confirmação para ativar Shopify)
