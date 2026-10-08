@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { Check, ChevronLeft, Clock, Crown, MapPin, Store, Ticket, User, Users } from "lucide-react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 import { z } from "zod";
 
@@ -92,6 +92,10 @@ function Checkout() {
 
   const level = customer?.level ?? null;
   const hasDose = cart.some((item) => products.find((product) => product.id === item.productId)?.pickupOnly);
+  useEffect(() => {
+    // ⚠️ RESTRIÇÃO DA DOSE: qualquer carrinho com Dose fica travado em retirada.
+    if (hasDose) setType("RETIRADA");
+  }, [hasDose]);
   const fullAddress = `${addr.street}, ${addr.number} — ${addr.district}${addr.complement ? ` (${addr.complement})` : ""}`;
   const est = useMemo(() => estimate(`${addr.street} ${addr.number} ${addr.district}`), [addr]);
   const addressOk = addressSchema.safeParse(addr).success;
@@ -151,6 +155,12 @@ function Checkout() {
   }
 
   function confirm() {
+    // ⚠️ A Dose não pode gerar pedido para entrega nem pagamento no recebimento.
+    if (hasDose && (type !== "RETIRADA" || paymentMethod !== "PIX")) {
+      setError("A Dose exige retirada presencial e pagamento antecipado via Pix.");
+      setStep(type !== "RETIRADA" ? 1 : 3);
+      return;
+    }
     const recipientName = who === "TERCEIRO" ? thirdName.trim() : (user?.name ?? "Cliente");
     const extra = [note.trim(), paymentMethod === "DINHEIRO" && change ? `Troco para R$ ${change}` : ""]
       .filter(Boolean)
