@@ -25,6 +25,7 @@ export const Route = createFileRoute("/carrinho")({
 
 function Carrinho() {
   const { cart, products, cartSubtotal } = useApp();
+  const hasPickupOnly = cart.some((item) => products.find((product) => product.id === item.productId)?.pickupOnly);
 
   return (
     <SiteLayout>
@@ -64,7 +65,7 @@ function Carrinho() {
               </div>
               <div className="mt-1 flex items-center justify-between text-sm">
                 <span className="text-muted-foreground">Entrega</span>
-                <span>{brl(6)} (ou grátis na retirada)</span>
+                <span>{hasPickupOnly ? "Retirada obrigatória" : `${brl(6)} (ou grátis na retirada)`}</span>
               </div>
               <Button asChild size="lg" className="mt-4 w-full">
                 <Link to="/checkout">Finalizar compra</Link>
