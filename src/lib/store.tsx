@@ -6,6 +6,7 @@ import type {
   AppNotification,
   CartItem,
   ComboSelection,
+  DoseSelection,
   ProductOptions,
   Customer,
   LoyaltyLevel,
@@ -47,6 +48,7 @@ interface AppState {
       size?: string | undefined;
       flavors?: string[] | undefined;
       combo?: ComboSelection | undefined;
+      dose?: DoseSelection | undefined;
     },
   ) => void;
   /** substitui (ou remove, com null) uma linha do carrinho */
@@ -231,10 +233,12 @@ export function AppProvider({ children }: { children: ReactNode }) {
         size?: string | undefined;
         flavors?: string[] | undefined;
         combo?: ComboSelection | undefined;
+        dose?: DoseSelection | undefined;
       },
     ) => {
       setCart((prev) => {
         if (extra?.combo) return [...prev, { productId, quantity, combo: extra.combo }];
+        if (extra?.dose) return [...prev, { productId, quantity, dose: extra.dose }];
         const size = extra?.size;
         const flavors = extra?.flavors;
         const idx = prev.findIndex(
@@ -280,6 +284,9 @@ export function AppProvider({ children }: { children: ReactNode }) {
     (item: CartItem) => {
       const p = products.find((x) => x.id === item.productId);
       if (item.combo && p?.options?.kind === "combo") return comboPrice(p.options, item.combo);
+      if (item.dose && p?.options?.kind === "dose") {
+        return p.options.bebidas.find((option) => option.label === item.dose?.bebida)?.price ?? p.price;
+      }
       if (item.size && p?.options?.kind === "size") {
         const opt = p.options.sizes.find((o) => o.label === item.size);
         if (opt) return opt.price;
@@ -511,7 +518,16 @@ export function comboLines(sel: ComboSelection) {
 
 export function describeVariation(name: string, item: CartItem) {
   if (item.combo) return `${name} — ${comboLines(item.combo).join("; ")}`;
+  if (item.dose) return `${name} — ${doseLines(item.dose).join("; ")}`;
   if (item.size) return `${name} - ${item.size}`;
   if (item.flavors?.length) return `${name} (${groupFlavors(item.flavors)})`;
   return name;
+}
+
+export function doseLines(selection: DoseSelection) {
+  return [
+    `Bebida: ${selection.bebida}`,
+    `Energético: ${selection.energetico}`,
+    `Gelo: ${selection.gelo}`,
+  ];
 }

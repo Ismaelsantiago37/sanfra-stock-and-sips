@@ -4,10 +4,11 @@ import { useState } from "react";
 
 import { FlavorGrid, QtyStepper, SizeGrid } from "@/components/site/VariationPickers";
 import { ComboDialog } from "@/components/site/ComboDialog";
+import { DoseDialog } from "@/components/site/DoseDialog";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Button } from "@/components/ui/button";
 import { brl } from "@/lib/format";
-import { comboLines, groupFlavors, useApp } from "@/lib/store";
+import { comboLines, doseLines, groupFlavors, useApp } from "@/lib/store";
 import type { CartItem, Product } from "@/lib/types";
 
 export const Route = createFileRoute("/carrinho")({
@@ -158,6 +159,27 @@ function CartLine({ item, index, product }: { item: CartItem; index: number; pro
           confirmLabel="Salvar alterações"
           onConfirm={(combo) => updateCartLine(index, { ...item, combo })}
         />
+      </li>
+    );
+  }
+
+  if (item.dose && opts?.kind === "dose") {
+    return (
+      <li className="rounded-xl border border-primary/35 bg-card p-3">
+        <div className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-start gap-3">
+          <img src={product.image} alt={product.name} width={80} height={80} className="h-16 w-16 rounded-lg object-cover" />
+          <div className="min-w-0">
+            <p className="text-sm font-semibold">1x Dose 700ml</p>
+            <ul className="mt-1 space-y-0.5 pl-2 text-xs text-muted-foreground">{doseLines(item.dose).map((line) => <li key={line}>– {line}</li>)}</ul>
+            <p className="mt-2 text-xs text-primary">Somente retirada · pagamento antecipado</p>
+            <p className="font-display text-lg text-primary">{brl(unit)}</p>
+          </div>
+          <div className="flex gap-1">
+            <Button size="icon" variant={editing ? "default" : "ghost"} onClick={() => setEditing(true)} aria-label="Editar Dose"><Pencil className="h-4 w-4" /></Button>
+            <Button size="icon" variant="ghost" onClick={() => updateCartLine(index, null)} aria-label="Remover Dose"><Trash2 className="h-4 w-4" /></Button>
+          </div>
+        </div>
+        <DoseDialog product={product} open={editing} onOpenChange={setEditing} initial={item.dose} confirmLabel="Salvar alterações" onConfirm={(dose) => updateCartLine(index, { ...item, dose })} />
       </li>
     );
   }

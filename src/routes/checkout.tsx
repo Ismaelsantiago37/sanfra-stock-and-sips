@@ -66,7 +66,7 @@ const addressSchema = z.object({
 });
 
 function Checkout() {
-  const { cart, cartSubtotal, placeOrder, customer, user } = useApp();
+  const { cart, cartSubtotal, placeOrder, customer, user, products } = useApp();
   const navigate = useNavigate();
   const [step, setStep] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -91,6 +91,7 @@ function Checkout() {
   const [note, setNote] = useState("");
 
   const level = customer?.level ?? null;
+  const hasDose = cart.some((item) => products.find((product) => product.id === item.productId)?.pickupOnly);
   const fullAddress = `${addr.street}, ${addr.number} — ${addr.district}${addr.complement ? ` (${addr.complement})` : ""}`;
   const est = useMemo(() => estimate(`${addr.street} ${addr.number} ${addr.district}`), [addr]);
   const addressOk = addressSchema.safeParse(addr).success;
@@ -141,6 +142,7 @@ function Checkout() {
       const r = recipientSchema.safeParse({ name: thirdName, phone: thirdPhone });
       if (!r.success) return setError(r.error.issues[0]!.message);
     }
+    if (step === 0 && hasDose) setType("RETIRADA");
     if (step === 1 && type === "ENTREGA") {
       const r = addressSchema.safeParse(addr);
       if (!r.success) return setError(r.error.issues[0]!.message);
@@ -244,13 +246,14 @@ function Checkout() {
             <>
               <p className="font-medium">Como você quer receber?</p>
               <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                <button className={choice(type === "ENTREGA")} onClick={() => setType("ENTREGA")}>
+                <button disabled={hasDose} className={cn(choice(type === "ENTREGA"), hasDose && "cursor-not-allowed opacity-40")} onClick={() => setType("ENTREGA")}> 
                   <MapPin className="h-5 w-5" /> Entrega no endereço
                 </button>
                 <button className={choice(type === "RETIRADA")} onClick={() => setType("RETIRADA")}>
                   <Store className="h-5 w-5" /> Retirar na adega (grátis)
                 </button>
               </div>
+              {hasDose && <p className="mt-3 rounded-lg border border-primary/40 bg-primary/5 p-3 text-xs text-muted-foreground">A Dose é preparada após o pagamento e deve ser retirada presencialmente. Por isso, este pedido está configurado para retirada.</p>}
               {type === "ENTREGA" ? (
                 <>
                   <div className="mt-4 grid gap-3 sm:grid-cols-[1fr_110px]">
@@ -346,6 +349,9 @@ function Checkout() {
                   </button>
                 ))}
               </div>
+              {hasDose && paymentMethod !== "PIX" && (
+                <p className="mt-3 text-sm text-destructive">Para a Dose, selecione Pix para pagamento antecipado.</p>
+              )}
               {paymentMethod === "DINHEIRO" && (
                 <div className="mt-4 space-y-1.5">
                   <Label htmlFor="troco">Troco para quanto? (opcional)</Label>
@@ -394,7 +400,7 @@ function Checkout() {
               </Button>
             )}
             {step < steps.length - 1 ? (
-              <Button size="lg" className="flex-1" onClick={next}>Continuar</Button>
+              <Button size="lg" className="flex-1" disabled={step === 3 && hasDose && paymentMethod !== "PIX"} onClick={next}>Continuar</Button>
             ) : (
               <Button size="lg" className="flex-1" onClick={confirm}>Confirmar pedido</Button>
             )}
