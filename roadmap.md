@@ -20,3 +20,4 @@
 - [x] Dose em três etapas e Gelo de sabor com fotos enviadas
 - [x] Aplicar Gelo de sabor a R$ 2,60 e Dose a partir de R$ 35,00, variando pela bebida
 - [x] Dose restrita a Pix informado, sem confirmação automática (decisão do usuário)
+- [x] Exibir percentual, economia e valores de/por nas promoções do admin e do cliente

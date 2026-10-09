@@ -4,7 +4,7 @@ import { Clock, Tag } from "lucide-react";
 import { AddToCartButton } from "@/components/site/AddToCartDialog";
 import { SiteLayout } from "@/components/site/SiteLayout";
 import { Badge } from "@/components/ui/badge";
-import { brl, dateBR } from "@/lib/format";
+import { brl, dateBR, promotionDiscount } from "@/lib/format";
 import { useApp } from "@/lib/store";
 import { isPromoLive } from "@/lib/store";
 
@@ -19,6 +19,8 @@ export const Route = createFileRoute("/promocoes")({
       },
       { property: "og:title", content: "Promoções — Adega do Sanfra" },
       { property: "og:description", content: "Ofertas da semana na Adega do Sanfra." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Promocoes,
@@ -42,7 +44,7 @@ function Promocoes() {
           {list.map((promo) => {
             const product = products.find((p) => p.id === promo.productId);
             if (!product) return null;
-            const off = Math.round((1 - promo.newPrice / promo.oldPrice) * 100);
+            const discount = promotionDiscount(promo.oldPrice, promo.newPrice);
             return (
               <article
                 key={promo.id}
@@ -57,11 +59,20 @@ function Promocoes() {
                     height={300}
                     className="h-40 w-full object-cover"
                   />
-                  <Badge className="absolute left-2 top-2">-{off}%</Badge>
+                  <Badge className="absolute left-2 top-2">-{discount.percent}%</Badge>
                 </div>
                 <div className="flex flex-1 flex-col gap-2 p-4">
                   <p className="font-display text-lg">{promo.title}</p>
                   <p className="text-sm text-muted-foreground">{product.name}</p>
+                  <div className="rounded-lg border border-primary/30 bg-primary/5 p-2 text-sm">
+                    <p>
+                      <strong>{product.name}</strong>: de <span className="line-through">{brl(promo.oldPrice)}</span>{" "}
+                      por <strong className="text-primary">{brl(promo.newPrice)}</strong>
+                    </p>
+                    <p className="mt-1 text-xs font-semibold text-primary">
+                      {discount.percent}% de desconto · Você economiza {brl(discount.amount)}
+                    </p>
+                  </div>
                   <p className="flex items-center gap-1 text-xs text-muted-foreground">
                     <Clock className="h-3 w-3" /> Vale até {dateBR(promo.expiresAt)}
                     {promo.availableQty !== null && ` • ${promo.availableQty} un.`}
