@@ -1,6 +1,11 @@
 export const brl = (value: number) =>
   value.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
+export const promotionDiscount = (oldPrice: number, newPrice: number) => ({
+  percent: Math.round((1 - newPrice / oldPrice) * 100),
+  amount: Math.max(0, oldPrice - newPrice),
+});
+
 export const dateBR = (iso: string) =>
   new Date(iso).toLocaleDateString("pt-BR", { day: "2-digit", month: "2-digit", year: "numeric" });
 

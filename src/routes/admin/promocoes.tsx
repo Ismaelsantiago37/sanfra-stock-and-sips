@@ -9,7 +9,7 @@ import { Chip } from "@/components/site/VariationPickers";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { brl, dateBR } from "@/lib/format";
+import { brl, dateBR, promotionDiscount } from "@/lib/format";
 import { isPromoLive, useApp } from "@/lib/store";
 import type { Product, Promotion } from "@/lib/types";
 
@@ -185,6 +185,9 @@ function PromoCard({
   const [start, setStart] = useState((p.startsAt ?? new Date().toISOString()).slice(0, 10));
   const [end, setEnd] = useState(p.expiresAt.slice(0, 10));
   const st = status(p);
+  const currentPrice = Number(price);
+  const previewPrice = currentPrice > 0 && currentPrice < p.oldPrice ? currentPrice : p.newPrice;
+  const discount = promotionDiscount(p.oldPrice, previewPrice);
   return (
     <div className="rounded-xl border border-border p-3">
       <div className="flex flex-wrap items-center gap-2">
@@ -196,6 +199,15 @@ function PromoCard({
       <p className="text-xs text-muted-foreground">
         {product?.name ?? "Produto removido"} · {dateBR(p.startsAt ?? new Date().toISOString())} até {dateBR(p.expiresAt)}
       </p>
+      <div className="mt-2 rounded-lg border border-primary/30 bg-primary/5 p-2 text-sm">
+        <p>
+          <strong>{product?.name ?? "Produto removido"}</strong>: de <span className="line-through">{brl(p.oldPrice)}</span>{" "}
+          por <strong className="text-primary">{brl(previewPrice)}</strong>
+        </p>
+        <p className="mt-1 text-xs font-semibold text-primary">
+          {discount.percent}% de desconto · Economia de {brl(discount.amount)}
+        </p>
+      </div>
       <div className="mt-2 grid grid-cols-3 gap-2">
         <label className="text-[11px] text-muted-foreground">
           Preço promo ({brl(p.oldPrice)})
